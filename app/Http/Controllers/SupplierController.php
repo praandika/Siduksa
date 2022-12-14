@@ -15,7 +15,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        $data = Supplier::orderBy('name','asc')->get();
+        return view('page', compact('data'));
     }
 
     /**

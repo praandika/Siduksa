@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Pembelian;
+use App\Models\Penjualan;
 
 class User extends Authenticatable
 {
@@ -27,6 +29,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'username',
+        'address',
+        'phone',
+        'position',
+        'roles',
     ];
 
     /**
@@ -58,4 +65,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    // Relasi to Pembelian
+    public function pembelian(){
+        return $this->hasMany(Pembelian::class);
+    }
+
+    // Relasi to Penjualan
+    public function penjualan(){
+        return $this->hasMany(Penjualan::class);
+    }
 }
