@@ -15,7 +15,8 @@ class MesinController extends Controller
      */
     public function index()
     {
-        //
+        $data = Mesin::orderBy('name','asc')->get();
+        return view('page', compact('data'));
     }
 
     /**
@@ -36,7 +37,13 @@ class MesinController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new Mesin;
+        $data->name = $request->name;
+        $data->capacity = $request->capacity;
+        $data->status = 'offline';
+        $data->save();
+        toast('Data mesin berhasil disimpan','success');
+        return redirect()->route('mesin.index')->with('display', true);
     }
 
     /**
@@ -58,7 +65,7 @@ class MesinController extends Controller
      */
     public function edit(Mesin $mesin)
     {
-        //
+        return view('page', compact('mesin'));
     }
 
     /**
@@ -70,7 +77,12 @@ class MesinController extends Controller
      */
     public function update(Request $request, Mesin $mesin)
     {
-        //
+        $data = Mesin::find($mesin->id);
+        $data->name = $request->name;
+        $data->capacity = $request->capacity;
+        $data->update();
+        toast('Data mesin berhasil diubah','success');
+        return redirect()->back();
     }
 
     /**
@@ -82,5 +94,11 @@ class MesinController extends Controller
     public function destroy(Mesin $mesin)
     {
         //
+    }
+
+    public function delete($id){
+        Mesin::find($id)->delete();
+        toast('Data mesin terhapus','success');
+        return redirect()->back();
     }
 }

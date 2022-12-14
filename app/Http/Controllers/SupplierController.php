@@ -26,7 +26,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -37,7 +37,17 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $instansiNull = ($request->instansi == '') ? '-' : $request->instansi;
+        $emailNull = ($request->email == '') ? '-' : $request->email;
+        $data = new Supplier;
+        $data->name = $request->name;
+        $data->address = $request->address;
+        $data->contact = $request->contact;
+        $data->email = $emailNull;
+        $data->instansi = $instansiNull;
+        $data->save();
+        toast('Data supplier berhasil disimpan','success');
+        return redirect()->route('supplier.index')->with('display', true);
     }
 
     /**
@@ -59,7 +69,7 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        //
+        return view('page', compact('supplier'));
     }
 
     /**
@@ -71,7 +81,17 @@ class SupplierController extends Controller
      */
     public function update(Request $request, Supplier $supplier)
     {
-        //
+        $instansiNull = ($request->instansi == '') ? '-' : $request->instansi;
+        $emailNull = ($request->email == '') ? '-' : $request->email;
+        $data = Supplier::find($supplier->id);
+        $data->name = $request->name;
+        $data->address = $request->address;
+        $data->contact = $request->contact;
+        $data->email = $emailNull;
+        $data->instansi = $instansiNull;
+        $data->update();
+        toast('Data supplier berhasil diubah','success');
+        return redirect()->back();
     }
 
     /**
@@ -83,5 +103,11 @@ class SupplierController extends Controller
     public function destroy(Supplier $supplier)
     {
         //
+    }
+
+    public function delete($id){
+        Supplier::find($id)->delete();
+        toast('Data supplier terhapus','success');
+        return redirect()->back();
     }
 }

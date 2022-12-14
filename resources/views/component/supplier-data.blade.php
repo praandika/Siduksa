@@ -1,6 +1,9 @@
 @section('title','Supplier')
 @section('page-title','Supplier')
-@section('breadcrumb','Supplier')
+@push('breadcrumb')
+    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
+    <li class="breadcrumb-item text-sm text-white active" aria-current="page">Supplier</li>
+@endpush
 <div class="row">
     <div class="col-12">
         <div class="card mb-4">
@@ -8,23 +11,23 @@
                 <h6>Data Supplier</h6>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
-                <div class="table-responsive p-0">
+                <div class="table-responsive p-3">
                     <table class="table align-items-center mb-0" id="dataTable">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
                         </tfoot>
@@ -55,9 +58,12 @@
                                     <p class="text-xs text-secondary mb-0">{{ $o->email }}</p>
                                 </td>
                                 <td class="align-middle">
-                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                        data-toggle="tooltip" data-original-title="Edit user">
-                                        Edit
+                                    <a href="{{ route('supplier.edit', $o->id) }}" data-toggle="tooltip" data-placement="top" title="Ubah">
+                                        <i class="fas fa-edit" style="color: DodgerBlue;"></i>
+                                    </a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="{{ route('supplier.delete', $o->id) }}" data-toggle="tooltip" data-placement="top" title="Hapus" onclick="return tanya('Yakin hapus supplier {{ $o->name }}?')">
+                                        <i class="fas fa-trash-alt" style="color: Crimson;"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -75,6 +81,8 @@
         </div>
     </div>
 </div>
+
+
 
 @push('after-script')
 <script>
