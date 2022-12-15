@@ -15,7 +15,8 @@ class PengepulController extends Controller
      */
     public function index()
     {
-        //
+        $data = Pengepul::orderBy('name','asc')->get();
+        return view('page', compact('data'));
     }
 
     /**
@@ -36,7 +37,17 @@ class PengepulController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $instansiNull = ($request->instansi == '') ? '-' : $request->instansi;
+        $emailNull = ($request->email == '') ? '-' : $request->email;
+        $data = new Pengepul;
+        $data->name = $request->name;
+        $data->address = $request->address;
+        $data->contact = $request->contact;
+        $data->email = $emailNull;
+        $data->instansi = $instansiNull;
+        $data->save();
+        toast('Data pengepul berhasil disimpan','success');
+        return redirect()->route('pengepul.index')->with('display', true);
     }
 
     /**
@@ -47,7 +58,7 @@ class PengepulController extends Controller
      */
     public function show(Pengepul $pengepul)
     {
-        //
+        // 
     }
 
     /**
@@ -58,7 +69,7 @@ class PengepulController extends Controller
      */
     public function edit(Pengepul $pengepul)
     {
-        //
+        return view('page', compact('pengepul'));
     }
 
     /**
@@ -70,7 +81,17 @@ class PengepulController extends Controller
      */
     public function update(Request $request, Pengepul $pengepul)
     {
-        //
+        $instansiNull = ($request->instansi == '') ? '-' : $request->instansi;
+        $emailNull = ($request->email == '') ? '-' : $request->email;
+        $data = Pengepul::find($pengepul->id);
+        $data->name = $request->name;
+        $data->address = $request->address;
+        $data->contact = $request->contact;
+        $data->email = $emailNull;
+        $data->instansi = $instansiNull;
+        $data->update();
+        toast('Data pengepul berhasil diubah','success');
+        return redirect()->back();
     }
 
     /**
@@ -82,5 +103,11 @@ class PengepulController extends Controller
     public function destroy(Pengepul $pengepul)
     {
         //
+    }
+
+    public function delete($id){
+        Pengepul::find($id)->delete();
+        toast('Data pengepul terhapus','success');
+        return redirect()->back();
     }
 }

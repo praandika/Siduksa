@@ -16,15 +16,20 @@
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
   <!-- DataTables -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+
   @stack('before-css')
   <!-- CSS Files -->
-  <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css?v=2.0.4') }}" rel="stylesheet" />
+  <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css') }}" rel="stylesheet" />
+
+  
   @stack('after-css')
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
-  <div class="min-height-300 bg-primary position-absolute w-100"></div>
+  <div class="min-height-300 bg-primary position-absolute w-100" style="background-image: url('assets/img/bg-header-img.jpg'); background-position-y: 50%;">
+  <span class="mask bg-primary opacity-20"></span>
+</div>
 
   @include('component.sidemenu')
 
@@ -39,24 +44,35 @@
   @include('component.plugin')
 
   @stack('before-script')
+  <script src="{{ asset('assets/js/jquery-3.6.1.min.js') }}" type="text/javascript"></script>
   <!-- DataTables -->
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+  <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
   <!--   Core JS Files   -->
   <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
   <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
   <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
   <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
   <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
-  <script src="{{ asset('assets/js/jquery-3.6.1.min.js') }}"></script>
+  
   
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="{{ asset('assets/js/argon-dashboard.min.js?v=2.0.4') }}"></script>
+  <script src="{{ asset('assets/js/argon-dashboard.min.js') }}"></script>
 
   <!-- Moment -->
   <script src="{{ asset('assets/js/moment.js') }}"></script>
 
   <!-- Tanya JS -->
   <script src="{{ asset('assets/js/tanya.js') }}"></script>
+
+  <!-- Tooltips -->
+  <script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
+
+  @include('sweetalert::alert')
 
   @stack('after-script')
 </body>
