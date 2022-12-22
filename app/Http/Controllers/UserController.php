@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -37,7 +38,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new User;
+        $data->username = $request->username;
+        $data->password = Hash::make($request->password);
+        $data->name = $request->name;
+        $data->address = $request->address;
+        $data->phone = $request->phone;
+        $data->email = $request->email;
+        $data->position = $request->position;
+        $data->roles = $request->roles;
+        $data->save();
+        toast('Data user berhasil disimpan','success');
+        return redirect()->route('user.index')->with('display', true);
     }
 
     /**
@@ -59,7 +71,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        // 
+        return view('page', compact('user')); 
     }
 
     /**
@@ -69,9 +81,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $data = User::find($user->id);
+        $data->username = $request->username;
+        $data->name = $request->name;
+        $data->address = $request->address;
+        $data->phone = $request->phone;
+        $data->email = $request->email;
+        $data->position = $request->position;
+        $data->roles = $request->roles;
+        $data->update();
+        toast('Data user berhasil disimpan','success');
+        return redirect()->back();
     }
 
     /**
@@ -83,5 +105,22 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function changePassword(Request $request, $id){
+        $old = $request->oldpassword;
+        $new = $request->password;
+
+        $data = User::find($id);
+
+        if (Hash::check($old, $data->password)) {
+            $data->password = bcrypt($new);
+            $data->save();
+            toast('Password '.$data->username.' berhasil diubah','success');
+            return redirect()->route('user.index');
+        } else {
+            alert()->warning('Warning','Password lama salah!');
+            return redirect()->back()->withInput();
+        }
     }
 }

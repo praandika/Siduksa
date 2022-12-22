@@ -54,8 +54,8 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>&nbsp;&nbsp;Simpan</button>
-            <button type="reset" class="btn btn-danger"><i class="fas fa-undo"></i>&nbsp;&nbsp;Reset</button>
+            <button type="submit" class="btn bg-gradient-primary"><i class="fa fa-check"></i>&nbsp;&nbsp;Simpan</button>
+            <button type="reset" class="btn bg-gradient-danger"><i class="fas fa-undo"></i>&nbsp;&nbsp;Reset</button>
         </form>
     </div>
 </div>

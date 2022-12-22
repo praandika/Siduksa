@@ -13,6 +13,7 @@
         @if(Route::is('user.edit'))
             @include('component.user-edit')
         @else
+            @include('component.user-create')
             @include('component.user-data')
         @endif
         
@@ -38,6 +39,22 @@
         @else
             @include('component.mesin-create')
             @include('component.mesin-data')
+        @endif
+
+    @elseif(Route::is('sampah-plastik.*'))
+        @if(Route::is('sampah-plastik.edit'))
+            @include('component.sampah-plastik-edit')
+        @else
+            @include('component.sampah-plastik-create')
+            @include('component.sampah-plastik-data')
+        @endif
+
+    @elseif(Route::is('sampah-cacah.*'))
+        @if(Route::is('sampah-cacah.edit'))
+            @include('component.sampah-cacah-edit')
+        @else
+            @include('component.sampah-cacah-create')
+            @include('component.sampah-cacah-data')
         @endif
     @endif
 @endsection

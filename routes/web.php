@@ -3,8 +3,10 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MesinController;
 use App\Http\Controllers\PengepulController;
+use App\Http\Controllers\SampahCacahController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SampahPlastikController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,6 +29,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [DashboardCon
 
 // User
 Route::middleware(['auth:sanctum', 'verified'])->resource('user', UserController::class);
+Route::middleware(['auth:sanctum', 'verified'])->post('/user/change/{id}', [UserController::class, 'changePassword'])->name('user.change-password');
 // End User
 
 // Supplier
@@ -43,3 +46,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/pengepul/delete/{id}', [P
 Route::middleware(['auth:sanctum', 'verified'])->resource('mesin', MesinController::class);
 Route::middleware(['auth:sanctum', 'verified'])->get('/mesin/delete/{id}', [MesinController::class, 'delete'])->name('mesin.delete');
 // End Mesin
+
+// Sampah Plastik
+Route::middleware(['auth:sanctum', 'verified'])->resource('sampah-plastik', SampahPlastikController::class);
+// END Sampah Plastik
+
+// Sampah Cacah
+Route::middleware(['auth:sanctum', 'verified'])->resource('sampah-cacah', SampahCacahController::class);
+// END Sampah Cacah

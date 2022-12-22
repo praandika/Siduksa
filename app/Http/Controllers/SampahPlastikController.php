@@ -15,7 +15,8 @@ class SampahPlastikController extends Controller
      */
     public function index()
     {
-        //
+        $data = SampahPlastik::orderBy('name','asc')->get();
+        return view('page', compact('data'));
     }
 
     /**
@@ -36,7 +37,19 @@ class SampahPlastikController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $kg = ($request->price_kg == '') ? 0 : $request->price_kg ; 
+        $gram = ($request->price_gram == '') ? 0 : $request->price_gram ; 
+        $pcs = ($request->price_pcs == '') ? 0 : $request->price_pcs ; 
+
+        $data = new SampahPlastik;
+        $data->name = $request->name;
+        $data->price_kg = $kg;
+        $data->price_gram = $gram;
+        $data->price_pcs = $pcs;
+        $data->stock = 0;
+        $data->save();
+        toast('Data sampah plastik berhasil disimpan','success');
+        return redirect()->route('sampah-plastik.index')->with('display', true);
     }
 
     /**
@@ -58,7 +71,7 @@ class SampahPlastikController extends Controller
      */
     public function edit(SampahPlastik $sampahPlastik)
     {
-        //
+        return view('page', compact('sampahPlastik'));
     }
 
     /**
@@ -70,7 +83,18 @@ class SampahPlastikController extends Controller
      */
     public function update(Request $request, SampahPlastik $sampahPlastik)
     {
-        //
+        $kg = ($request->price_kg == '') ? 0 : $request->price_kg ; 
+        $gram = ($request->price_gram == '') ? 0 : $request->price_gram ; 
+        $pcs = ($request->price_pcs == '') ? 0 : $request->price_pcs ;
+        
+        $data = SampahPlastik::find($sampahPlastik->id);
+        $data->name = $request->name;
+        $data->price_kg = $kg;
+        $data->price_gram = $gram;
+        $data->price_pcs = $pcs;
+        $data->update();
+        toast('Data sampah plastik berhasil diubah','success');
+        return redirect()->back();
     }
 
     /**
