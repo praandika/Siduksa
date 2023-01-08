@@ -64,7 +64,7 @@
                             <option>==================================</option>
                             <option value="admin">Admin</option>
                             <option value="pimpinan">Pimpinan</option>
-                            <option value="master">Master</option>
+                            <option value="gudang">Gudang</option>
                         </select>
                     </div>
                 </div>

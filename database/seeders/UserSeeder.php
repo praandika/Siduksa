@@ -23,8 +23,8 @@ class UserSeeder extends Seeder
             'address' => 'Kedonganan',
             'phone' => '082147084031',
             'email' => 'astikajordi25@gmail.com',
-            'position' => 'System Administrator',
-            'roles' => 'master',
+            'position' => 'Admin',
+            'roles' => 'admin',
         ]);
 
         User::insert([
@@ -34,8 +34,8 @@ class UserSeeder extends Seeder
             'address' => 'Sanur',
             'phone' => '081246571421',
             'email' => 'praandikayoga@gmail.com',
-            'position' => 'Admin',
-            'roles' => 'admin',
+            'position' => 'Gudang',
+            'roles' => 'gudang',
         ]);
 
         User::insert([

@@ -56,5 +56,13 @@
             @include('component.sampah-cacah-create')
             @include('component.sampah-cacah-data')
         @endif
+
+    @elseif(Route::is('konversi.*'))
+        @if(Route::is('konversi.edit'))
+            @include('component.konversi-edit')
+        @else
+            @include('component.konversi-create')
+            @include('component.konversi-data')
+        @endif
     @endif
 @endsection

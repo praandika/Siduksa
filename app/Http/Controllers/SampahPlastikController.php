@@ -43,6 +43,7 @@ class SampahPlastikController extends Controller
 
         $data = new SampahPlastik;
         $data->name = $request->name;
+        $data->type = $request->type;
         $data->price_kg = $kg;
         $data->price_gram = $gram;
         $data->price_pcs = $pcs;
@@ -89,6 +90,7 @@ class SampahPlastikController extends Controller
         
         $data = SampahPlastik::find($sampahPlastik->id);
         $data->name = $request->name;
+        $data->type = $request->type;
         $data->price_kg = $kg;
         $data->price_gram = $gram;
         $data->price_pcs = $pcs;

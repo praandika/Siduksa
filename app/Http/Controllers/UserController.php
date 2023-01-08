@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -114,13 +116,19 @@ class UserController extends Controller
         $data = User::find($id);
 
         if (Hash::check($old, $data->password)) {
-            $data->password = bcrypt($new);
+            $data->password = Hash::make($new);
             $data->save();
             toast('Password '.$data->username.' berhasil diubah','success');
-            return redirect()->route('user.index');
+            return redirect()->route('logout.action');
         } else {
             alert()->warning('Warning','Password lama salah!');
             return redirect()->back()->withInput();
         }
+    }
+
+    public function logoutAction(){
+        Session::flush();
+        Auth::logout();
+        return redirect('login');
     }
 }

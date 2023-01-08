@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('sampah_plastiks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('type');
             $table->integer('stock');
             $table->integer('price_kg');
             $table->integer('price_gram');

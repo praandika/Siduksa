@@ -17,6 +17,7 @@
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (kg)</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (gram)</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (pcs)</th>
@@ -27,6 +28,7 @@
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (kg)</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (gram)</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (pcs)</th>
@@ -53,6 +55,24 @@
                                     </div>
                                 </td>
                                 <td>
+                                    <p class="text-xs font-weight-bold mb-0">{{ $o->type }}</p>
+                                    @if ($o->type == 'PETE')
+                                    <p class="text-xs text-secondary mb-0">Polyethylene Terephthalate</p>
+                                    @elseif ($o->type == 'HDPE')
+                                    <p class="text-xs text-secondary mb-0">High Density Polyethylene</p>
+                                    @elseif ($o->type == 'PVC')
+                                    <p class="text-xs text-secondary mb-0">Polyvinyl Chloride</p>
+                                    @elseif ($o->type == 'LDPE')
+                                    <p class="text-xs text-secondary mb-0">Low Density Polyethylene</p>
+                                    @elseif ($o->type == 'PP')
+                                    <p class="text-xs text-secondary mb-0">Polypropylene</p>
+                                    @elseif ($o->type == 'PS')
+                                    <p class="text-xs text-secondary mb-0">Polystyrene</p>
+                                    @else
+                                    <p class="text-xs text-secondary mb-0">Other</p>
+                                    @endif
+                                </td>
+                                <td>
                                     <span class="text-xs font-weight-bold">{{ number_format($o->price_kg, 0, ',', '.')}}</span>
                                 </td>
                                 <td>
@@ -69,7 +89,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="6" style="text-align: center;">
+                                <td colspan="7" style="text-align: center;">
                                     <span class="text-xs font-weight-bold">No data available</span>
                                 </td>
                             </tr>

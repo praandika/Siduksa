@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KonversiController;
 use App\Http\Controllers\MesinController;
 use App\Http\Controllers\PengepulController;
 use App\Http\Controllers\SampahCacahController;
@@ -54,3 +55,10 @@ Route::middleware(['auth:sanctum', 'verified'])->resource('sampah-plastik', Samp
 // Sampah Cacah
 Route::middleware(['auth:sanctum', 'verified'])->resource('sampah-cacah', SampahCacahController::class);
 // END Sampah Cacah
+
+// Konversi
+Route::middleware(['auth:sanctum', 'verified'])->resource('konversi', KonversiController::class);
+// END Konversi
+
+// Logout Action
+Route::get('/logoutaction', [UserController::class, 'logoutAction'])->name('logout.action');

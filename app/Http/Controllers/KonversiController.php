@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Konversi;
 use App\Http\Controllers\Controller;
+use App\Models\SampahPlastik;
 use Illuminate\Http\Request;
 
 class KonversiController extends Controller
@@ -15,7 +16,9 @@ class KonversiController extends Controller
      */
     public function index()
     {
-        //
+        $data = Konversi::orderBy('id','desc')->get();
+        $sampahPlastik = SampahPlastik::orderBy('name','asc')->get();
+        return view('page', compact('data','sampahPlastik'));
     }
 
     /**
@@ -36,7 +39,26 @@ class KonversiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cekStok = $request->stok - $request->total_weight;
+        if ($cekStok <= 0) {
+            alert()->warning('Warning','Stok kurang!');
+            return redirect()->back()->withInput()->with('display', true);;
+        } else {
+            $total_weight = $request->total_weight / 1000;
+            $data = new Konversi;
+            $data->sampah_plastik_id = $request->sampah_plastik;
+            $data->total_weight = $total_weight;
+            $data->satuan = 'Kg';
+            $data->recovery_factor = 0;
+            $data->save();
+
+            $sisaStok = $cekStok / 1000;
+            $sampah = SampahPlastik::find($request->sampah_plastik);
+            $sampah->stock = $sisaStok;
+            $sampah->update();
+            toast('Data konversi berhasil disimpan','success');
+            return redirect()->route('konversi.index')->with('display', true);
+        }
     }
 
     /**
@@ -58,7 +80,7 @@ class KonversiController extends Controller
      */
     public function edit(Konversi $konversi)
     {
-        //
+        return view('page', compact('konversi'));
     }
 
     /**
@@ -70,7 +92,24 @@ class KonversiController extends Controller
      */
     public function update(Request $request, Konversi $konversi)
     {
-        //
+        $cekStok = $request->stok - $request->total_weight;
+        if ($cekStok <= 0) {
+            alert()->warning('Warning','Stok kurang!');
+            return redirect()->back()->withInput();
+        } else {
+            $data = Konversi::find($konversi->id);
+            $data->sampah_plastik_id = $request->sampah_plastik;
+            $data->total_weight = $request->total_weight / 1000;
+            $data->satuan = 'Kg';
+            $data->update();
+
+            $sisaStok = $cekStok / 1000;
+            $sampah = SampahPlastik::find($request->sampah_plastik);
+            $sampah->stock = $sisaStok;
+            $sampah->update();
+            toast('Data konversi berhasil diubah','success');
+            return redirect()->back();
+        }
     }
 
     /**
