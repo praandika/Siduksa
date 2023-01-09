@@ -23,7 +23,7 @@
                         <input class="form-control" type="text" name="sampah" id="sampah" value="{{ $konversi->sampahPlastik->name }}"
                             placeholder="Pilih sampah plastik..." data-bs-toggle="modal" data-bs-target="#sampahPlastik"
                             required autofocus readonly>
-                        <input type="hidden" name="sampah_plastik" id="sampah_id" value="{{ $konversi->sampahPlastik->sampah_plastik_id }}" required>
+                        <input type="hidden" name="sampah_plastik" id="sampah_id" value="{{ $konversi->sampah_plastik_id }}" required>
                     </div>
                 </div>
                 <div class="col-md-4">

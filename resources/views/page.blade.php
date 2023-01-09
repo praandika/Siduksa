@@ -64,5 +64,13 @@
             @include('component.konversi-create')
             @include('component.konversi-data')
         @endif
+
+    @elseif(Route::is('penjadwalan.*'))
+        @if(Route::is('penjadwalan.edit'))
+            @include('component.penjadwalan-edit')
+        @else
+            @include('component.penjadwalan-create')
+            @include('component.penjadwalan-data')
+        @endif
     @endif
 @endsection

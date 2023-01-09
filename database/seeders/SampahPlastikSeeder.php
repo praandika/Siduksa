@@ -21,7 +21,7 @@ class SampahPlastikSeeder extends Seeder
             'price_kg' => 20000,
             'price_gram' => 2000,
             'price_pcs' => 0,
-            'stock' => 3,
+            'stock' => 50,
         ]);
     }
 }

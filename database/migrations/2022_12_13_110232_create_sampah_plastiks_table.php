@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
-            $table->integer('stock');
+            $table->float('stock');
             $table->integer('price_kg');
             $table->integer('price_gram');
             $table->integer('price_pcs');

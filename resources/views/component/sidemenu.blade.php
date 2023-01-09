@@ -23,6 +23,7 @@
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
+            @if(Auth::user()->roles == 'admin')
             <li class="nav-item">
                 <a class="nav-link " href="#">
                     <div
@@ -50,11 +51,14 @@
                     <span class="nav-link-text ms-1">Pengiriman</span>
                 </a>
             </li>
+            @endif
+
+            @if(Auth::user()->roles == 'gudang')
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Produksi</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::is('konversi.*') ? 'active' : '' }}" href="{{ route('konversi.index') }}" href="#">
+                <a class="nav-link {{ Route::is('konversi.*') ? 'active' : '' }}" href="{{ route('konversi.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-scissors text-primary text-sm opacity-10"></i>
@@ -63,7 +67,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="#">
+                <a class="nav-link {{ Route::is('penjadwalan.*') ? 'active' : '' }}" href="{{ route('penjadwalan.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
@@ -92,6 +96,9 @@
                     <span class="nav-link-text ms-1">Sampah Cacah</span>
                 </a>
             </li>
+            @endif
+
+            @if(Auth::user()->roles == 'admin')
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Data</h6>
             </li>
@@ -134,8 +141,10 @@
                     <span class="nav-link-text ms-1">Data User</span>
                 </a>
             </li>
+            @endif
         </ul>
     </div>
+    @if(Auth::user()->roles == 'pimpinan')
     <div class="sidenav-footer mx-3 ">
         <div class="card card-plain shadow-none" id="sidenavCard">
             <img class="w-50 mx-auto" src="{{ asset('assets/img/illustrations/icon-documentation.svg') }}"
@@ -155,4 +164,5 @@
         <a href="#" target="_blank"
             class="btn btn-danger btn-sm w-100 mb-3">Laporan Pembelian</a>
     </div>
+    @endif
 </aside>

@@ -17,7 +17,7 @@
             @method('PUT')
             <p class="text-uppercase text-sm">Sampah Plastik Information</p>
             <div class="row">
-            <div class="col-md-3">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Nama Sampah</label>
                         <input class="form-control" type="text" name="name" value="{{ $sampahPlastik->name }}" placeholder="Masukkan nama sampah plastik..." required autofocus>
@@ -25,17 +25,33 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Tipe Sampah</label>
+                        <select name="type" class="form-control">
+                            <option value="{{ $sampahPlastik->name }}">{{ $sampahPlastik->type }}</option>
+                            <option disabled>----------- Ubah tipe -----------</option>
+                            <option value="PETE">PETE (Polyethylene Terephthalate)</option>
+                            <option value="HDPE">HDPE (High Density Polyethylene)</option>
+                            <option value="PVC">PVC (Polyvinyl Chloride)</option>
+                            <option value="LDPE">LDPE (Low Density Polyethylene)</option>
+                            <option value="PP">PP (Polypropylene)</option>
+                            <option value="PS">PS (Polystyrene)</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Harga (Kg)</label>
                         <input class="form-control" type="text" name="price_kg" value="{{ $sampahPlastik->price_kg }}" placeholder="Masukkan harga kg sampah plastik..." required>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Harga (Gram)</label>
                         <input class="form-control" type="text" name="price_gram" value="{{ $sampahPlastik->price_gram }}" placeholder="Masukkan harga gram sampah plastik...">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Harga (Pcs)</label>
                         <input class="form-control" type="text" name="price_pcs" value="{{ $sampahPlastik->price_pcs }}" placeholder="Masukkan harga pcs sampah plastik...">

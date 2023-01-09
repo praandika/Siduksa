@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('sampah_cacahs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('stock');
+            $table->float('stock');
             $table->integer('price_kg');
             $table->integer('price_gram');
             $table->integer('price_pcs');

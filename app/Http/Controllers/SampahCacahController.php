@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SampahCacah;
 use App\Http\Controllers\Controller;
+use App\Models\Penjadwalan;
 use Illuminate\Http\Request;
 
 class SampahCacahController extends Controller
@@ -71,7 +72,10 @@ class SampahCacahController extends Controller
      */
     public function edit(SampahCacah $sampahCacah)
     {
-        return view('page', compact('sampahCacah'));
+        $stockNew = Penjadwalan::where('status','finished')->sum('last_stock');
+        $stock = SampahCacah::sum('stock');
+        $stockAvailable = ($stockNew - $stock) * 1000;
+        return view('page', compact('sampahCacah', 'stockAvailable'));
     }
 
     /**
@@ -92,6 +96,7 @@ class SampahCacahController extends Controller
         $data->price_kg = $kg;
         $data->price_gram = $gram;
         $data->price_pcs = $pcs;
+        $data->stock = $request->stock / 1000;
         $data->update();
         toast('Data sampah cacah berhasil diubah','success');
         return redirect()->back();

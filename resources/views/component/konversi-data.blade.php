@@ -12,12 +12,13 @@
             </div>
             <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-3">
-                    <table class="table align-items-center mb-0" id="dataTable">
+                    <table class="table align-items-center mb-0" id="myTable">
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sampah</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Recovery Factor</th>
+                                <th class="text-secondary opacity-7"></th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -25,6 +26,7 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sampah</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Recovery Factor</th>
+                                <th class="text-secondary opacity-7"></th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -75,7 +77,7 @@
 @push('after-script')
 <script>
     $(document).ready( function () {
-        $('#dataTable').DataTable();
+        $('#myTable').DataTable();
     } );
 </script>
 @endpush

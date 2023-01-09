@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('mesin_id');
             $table->unsignedInteger('konversi_id');
-            $table->integer('first_stock');
-            $table->integer('last_stock');
+            $table->float('first_stock');
+            $table->float('last_stock');
             $table->dateTime('date_stock_in');
-            $table->dateTime('date_stock_out');
+            $table->dateTime('date_stock_out')->nullable();
             $table->string('status');
             $table->timestamps();
         });

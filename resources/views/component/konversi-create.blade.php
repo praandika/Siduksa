@@ -75,7 +75,6 @@
                                 </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (pcs)
                                 </th>
-                                <th class="text-secondary opacity-7"></th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -89,7 +88,6 @@
                                 </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (pcs)
                                 </th>
-                                <th class="text-secondary opacity-7"></th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -141,16 +139,10 @@
                                     <span
                                         class="text-xs font-weight-bold">{{ number_format($o->price_pcs, 0, ',', '.')}}</span>
                                 </td>
-                                <td class="align-middle">
-                                    <a href="{{ route('sampah-plastik.edit', $o->id) }}" data-toggle="tooltip"
-                                        data-placement="top" title="Ubah">
-                                        <i class="fas fa-edit" style="color: DodgerBlue;"></i>
-                                    </a>
-                                </td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="7" style="text-align: center;">
+                                <td colspan="6" style="text-align: center;">
                                     <span class="text-xs font-weight-bold">No data available</span>
                                 </td>
                             </tr>
@@ -186,5 +178,11 @@
         $('#stok').val($(this).attr('data-stok'));
         $('#sampahPlastik').modal('hide');
     });
+</script>
+
+<script>
+    $(document).ready( function () {
+        $('#dataTable').DataTable();
+    } );
 </script>
 @endpush

@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('konversis', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('sampah_plastik_id');
-            $table->integer('total_weight');
+            $table->float('total_weight');
             $table->string('satuan');
             $table->string('recovery_factor');
+            $table->string('status');
             $table->timestamps();
         });
     }
