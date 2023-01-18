@@ -51,9 +51,9 @@
 </div>
 
 <!-- Sampah Plastik Modal -->
-<div class="modal fade" id="sampahPlastik" tabindex="-1" role="dialog" aria-labelledby="sampahPlastikLabel"
+<div style="z-index: 9999;" class="modal fade" id="sampahPlastik" tabindex="-1" role="dialog" aria-labelledby="sampahPlastikLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="sampahPlastikLabel">Pilih Sampah Plastik</h5>
@@ -142,9 +142,12 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="6" style="text-align: center;">
-                                    <span class="text-xs font-weight-bold">No data available</span>
-                                </td>
+                                <td>#</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             @endforelse
                         </tbody>

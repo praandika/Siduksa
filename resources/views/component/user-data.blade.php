@@ -82,11 +82,11 @@
                                         data-placement="top" title="Ubah">
                                         <i class="fas fa-edit" style="color: DodgerBlue;"></i>
                                     </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <a type="button" data-toggle="tooltip"
                                         data-placement="top" title="Ubah Password" data-bs-toggle="modal" data-bs-target="#changePasswordUser{{ $o->id }}">
                                         <i class="fas fa-lock" style="color: teal;"></i>
-                                    </a>
+                                    </a> -->
                                 </td>
                             </tr>
                             @empty

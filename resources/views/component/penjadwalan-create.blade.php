@@ -60,9 +60,9 @@
 </div>
 
 <!-- Mesin Modal -->
-<div class="modal fade" id="mesinModal" tabindex="-1" role="dialog" aria-labelledby="mesinModalLabel"
+<div style="z-index: 9999;" class="modal fade" id="mesinModal" tabindex="-1" role="dialog" aria-labelledby="mesinModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="mesinModalLabel">Pilih Mesin</h5>
@@ -112,9 +112,9 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="3" style="text-align: center;">
-                                    <span class="text-xs font-weight-bold">No data available</span>
-                                </td>
+                                <td>#</td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -127,9 +127,9 @@
 <!-- END Mesin Modal -->
 
 <!-- Konversi Modal -->
-<div class="modal fade" id="konversiModal" tabindex="-1" role="dialog" aria-labelledby="konversiModalLabel"
+<div style="z-index: 9999;" class="modal fade" id="konversiModal" tabindex="-1" role="dialog" aria-labelledby="konversiModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="konversiModalLabel">Pilih Konversi</h5>
@@ -179,9 +179,9 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="3" style="text-align: center;">
-                                    <span class="text-xs font-weight-bold">No data available</span>
-                                </td>
+                                <td>#</td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             @endforelse
                         </tbody>

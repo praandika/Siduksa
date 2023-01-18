@@ -72,5 +72,8 @@
             @include('component.penjadwalan-create')
             @include('component.penjadwalan-data')
         @endif
+
+    @elseif(Route::is('pembelian.*'))
+        @include('component.pembelian-transaksi')
     @endif
 @endsection

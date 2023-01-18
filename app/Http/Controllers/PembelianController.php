@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Pembelian;
 use App\Http\Controllers\Controller;
+use App\Models\Pengepul;
+use App\Models\SampahPlastik;
+use App\Models\TransaksiPembelian;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PembelianController extends Controller
@@ -15,7 +19,29 @@ class PembelianController extends Controller
      */
     public function index()
     {
-        //
+        // 
+    }
+
+    public function pembelianTransaction($invoice = null){
+        $now = Carbon::now('GMT+8')->format('Y-m-d');
+        $pengepul = Pengepul::orderBy('name','asc')->get();
+        $sampah = SampahPlastik::orderBy('name','asc')->get();
+
+        if ($invoice == null) {
+            $random = Carbon::now('GMT+8')->format('YmdHis');
+            $count = Pembelian::count();
+            $invoice = 'INV#'.$random.$count;
+            $data = 'empty';
+            return view('page',compact('now','pengepul','sampah','data','invoice'));
+        } else {
+            $data = TransaksiPembelian::join('sampah_plastiks','transaksi_pembelians.sampah_plastik_id','=','sampah_plastiks.id')
+            ->join('pembelians','transaksi_pembelians.pembelian_id','=','pembelians.id')
+            ->select('transaksi_pembelians.id as id_transaksi','sampah_plastiks.name','transaksi_pembelians.qty','transaksi_pembelians.satuan','transaksi_pembelians.harga')
+            ->where('pembelians.invoice',$invoice)
+            ->orderBy('created_at','desc')
+            ->get();
+            return view('page',compact('now','pengepul','sampah','data','invoice'));
+        }
     }
 
     /**
