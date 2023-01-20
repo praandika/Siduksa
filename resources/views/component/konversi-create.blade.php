@@ -31,7 +31,9 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Stok (Gram)</label>
-                        <input class="form-control" type="text" name="stok" id="stok" value="{{ old('stok') }}"
+                        <input class="form-control" type="hidden" name="stok" id="stok" value="{{ old('stok') }}"
+                            placeholder="Stok sampah plastik..." readonly>
+                        <input class="form-control" type="text" id="displayStok"
                             placeholder="Stok sampah plastik..." readonly>
                     </div>
                 </div>
@@ -93,7 +95,7 @@
                         <tbody>
                             @php($no = 1)
                             @forelse($sampahPlastik as $o)
-                            <tr data-id="{{ $o->id }}" data-name="{{ $o->name }}" data-stok="{{ $o->stock * 1000 }}" class="pilih">
+                            <tr data-id="{{ $o->id }}" data-name="{{ $o->name }}" data-stok="{{ $o->stock * 1000 }}" data-displaystok="{{ number_format($o->stock * 1000, 0, ',', '.') }}" class="pilih">
                                 <td>
                                     <span class="text-xs font-weight-bold">{{ $no++ }}</span>
                                 </td>
@@ -179,6 +181,7 @@
         $('#sampah_id').val($(this).attr('data-id'));
         $('#sampah').val($(this).attr('data-name'));
         $('#stok').val($(this).attr('data-stok'));
+        $('#displayStok').val($(this).attr('data-displaystok'));
         $('#sampahPlastik').modal('hide');
     });
 </script>

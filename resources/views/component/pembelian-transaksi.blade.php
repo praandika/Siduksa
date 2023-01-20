@@ -16,8 +16,17 @@
     <div class="card-body">
         <form action="{{ route('pembelian.store') }}" method="post">
             @csrf
-            <p class="text-uppercase text-sm">{{ $invoice }}</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-uppercase text-sm">{{ $invoice }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-uppercase text-sm" style="text-align: right;">Kasir: {{ Auth::user()->name }}</p>
+                </div>
+            </div>
+            
             <input type="hidden" name="invoice" value="{{ $invoice }}">
+            <input type="hidden" name="id_pembelian" value="{{ $id_pembelian }}">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -28,14 +37,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Pengepul</label>
-                        <input type="hidden" value="{{ old('pengepul_id') }}" id="pengepul_id">
+                        <input type="hidden" value="{{ old('pengepul_id') }}" name="pengepul_id" id="pengepul_id">
                         <input class="form-control" type="text" name="pengepul_name" value="{{ old('pengepul_name') }}" id="pengepul_name" placeholder="Pilih pengepul" data-bs-toggle="modal" data-bs-target="#pengepulData" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Sampah Plastik</label>
-                        <input type="hidden" value="{{ old('sampah_id') }}" id="sampah_id">
+                        <input type="hidden" value="{{ old('sampah_id') }}" name="sampah_id" id="sampah_id">
                         <input class="form-control" id="sampah_name" type="text" name="sampah_name" value="{{ old('sampah_name') }}" placeholder="Pilih sampah" data-bs-toggle="modal" data-bs-target="#sampahData" required>
                     </div>
                 </div>
@@ -65,8 +74,20 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">Qty</label>
-                        <input class="form-control" type="number" name="stock" value="{{ old('stock') }}" required>
+                        <label for="example-text-input" class="form-control-label">
+                            Qty &nbsp;
+                            <input type="radio" name="berat" id="gram" value="gram" checked><label for="gram">Gram</label> &nbsp;
+                            <input type="radio" name="berat" id="kg" value="kg"><label for="kg">Kg</label>
+                        </label>
+                        <input class="form-control" type="number" name="qty" value="{{ old('qty') }}" required>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Total (Rp)</label>
+                        <input class="form-control" type="number" value="{{ number_format($total, 0, ',', '.') }}" style="background-color: #f0ebb4; font-size: 50px; font-weight: bold;">
+                        <input type="hidden" name="total" value="{{ $total }}">
                     </div>
                 </div>
             </div>
@@ -142,7 +163,7 @@
                                         <span class="text-xs font-weight-bold">{{ $o->satuan }}</span>
                                     </td>
                                     <td>
-                                        <span class="text-xs font-weight-bold">{{ $o->harga }}</span>
+                                        <span class="text-xs font-weight-bold">{{ number_format($o->harga, 0, ',', '.') }}</span>
                                     </td>
                                     <td class="align-middle">
                                         <a href="{{ route('transaksi-pembelian.delete', $o->id_transaksi) }}" data-toggle="tooltip" data-placement="top" title="Hapus">
@@ -152,9 +173,12 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="6" style="text-align: center;">
-                                        <span class="text-xs font-weight-bold">No data available</span>
-                                    </td>
+                                    <td>#</td>
+                                    <td>..</td>
+                                    <td>..</td>
+                                    <td>..</td>
+                                    <td>..</td>
+                                    <td></td>
                                 </tr>
                                 @endforelse
                             @endif

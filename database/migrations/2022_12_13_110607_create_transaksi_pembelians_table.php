@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('transaksi_pembelians', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('penjualan_id');
-            $table->unsignedInteger('sampah_cacah_id');
+            $table->unsignedInteger('pembelian_id');
+            $table->unsignedInteger('sampah_plastik_id');
             $table->date('date');
             $table->integer('qty');
             $table->string('satuan');
