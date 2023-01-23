@@ -6,11 +6,13 @@ use App\Http\Controllers\MesinController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PengepulController;
 use App\Http\Controllers\PenjadwalanController;
+use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\SampahCacahController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SampahPlastikController;
-use App\Models\TransaksiPembelian;
+use App\Http\Controllers\TransaksiPembelianController;
+use App\Http\Controllers\TransaksiPenjualanController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -71,8 +73,15 @@ Route::middleware(['auth:sanctum', 'verified'])->resource('penjadwalan', Penjadw
 Route::middleware(['auth:sanctum', 'verified'])->resource('pembelian', PembelianController::class);
 Route::middleware(['auth:sanctum', 'verified'])->get('pembelian-transaction/{invoice?}', [PembelianController::class, 'pembelianTransaction'])->name('pembelian.transaction');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/transaksi-pembelian/delete/{id}', [TransaksiPembelian::class, 'delete'])->name('transaksi-pembelian.delete');
+Route::middleware(['auth:sanctum', 'verified'])->get('/transaksi-pembelian/delete/{id}', [TransaksiPembelianController::class, 'delete'])->name('transaksi-pembelian.delete');
 // END Pembelian
+
+// Penjualan
+Route::middleware(['auth:sanctum', 'verified'])->resource('penjualan', PenjualanController::class);
+Route::middleware(['auth:sanctum', 'verified'])->get('penjualan-transaction/{invoice?}', [PenjualanController::class, 'penjualanTransaction'])->name('penjualan.transaction');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/transaksi-penjualan/delete/{id}', [TransaksiPenjualanController::class, 'delete'])->name('transaksi-penjualan.delete');
+// END Penjualan
 
 // Logout Action
 Route::get('/logoutaction', [UserController::class, 'logoutAction'])->name('logout.action');

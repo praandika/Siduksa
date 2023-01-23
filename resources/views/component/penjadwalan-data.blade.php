@@ -47,7 +47,7 @@
                                     <p class="text-xs text-secondary mb-0">{{ $o->date_stock_in }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-xs font-weight-bold mb-0">{{ $o->last_stock }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ $o->last_stock }} Kg</p>
                                     <p class="text-xs text-secondary mb-0">{{ $o->date_stock_out }}</p>
                                 </td>
                                 <td>

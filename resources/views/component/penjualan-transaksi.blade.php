@@ -1,20 +1,20 @@
-@section('title','Transaksi Pembelian')
-@section('page-title','Transaksi Pembelian')
+@section('title','Transaksi Penjualan')
+@section('page-title','Transaksi Penjualan')
 @push('breadcrumb')
     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-    <li class="breadcrumb-item text-sm text-white active" aria-current="page">Transaksi Pembelian</li>
+    <li class="breadcrumb-item text-sm text-white active" aria-current="page">Transaksi Penjualan</li>
 @endpush
 
 <div class="card card-frame mb-4">
     <div class="card-header pb-0">
         <div class="row">
             <div class="col-12">
-                <h6>Pembelian</h6>
+                <h6>Penjualan</h6>
             </div>
         </div>
     </div>
     <div class="card-body">
-        <form action="{{ route('pembelian.store') }}" method="post">
+        <form action="{{ route('penjualan.store') }}" method="post">
             @csrf
             <div class="row">
                 <div class="col-md-6">
@@ -26,7 +26,7 @@
             </div>
             
             <input type="hidden" name="invoice" value="{{ $invoice }}">
-            <input type="hidden" name="id_pembelian" value="{{ $id_pembelian }}">
+            <input type="hidden" name="id_penjualan" value="{{ $id_penjualan }}">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -36,14 +36,14 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">Pengepul</label>
-                        <input type="hidden" value="{{ $pengepulId }}" name="pengepul_id" id="pengepul_id">
-                        <input class="form-control" type="text" name="pengepul_name" value="{{ $pengepulName }}" id="pengepul_name" placeholder="Pilih pengepul" data-bs-toggle="modal" data-bs-target="#pengepulData" required>
+                        <label for="example-text-input" class="form-control-label">Supplier</label>
+                        <input type="hidden" value="{{ $supplierId }}" name="supplier_id" id="supplier_id">
+                        <input class="form-control" type="text" name="supplier_name" value="{{ $supplierName }}" id="supplier_name" placeholder="Pilih supplier" data-bs-toggle="modal" data-bs-target="#supplierData" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">Sampah Plastik</label>
+                        <label for="example-text-input" class="form-control-label">Sampah Cacah</label>
                         <input type="hidden" name="sampah_id" id="sampah_id">
                         <input class="form-control" id="sampah_name" type="text" name="sampah_name" placeholder="Pilih sampah" data-bs-toggle="modal" data-bs-target="#sampahData" required>
                     </div>
@@ -92,7 +92,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn bg-gradient-primary"><i class="fa fa-check"></i>&nbsp;&nbsp;Buy</button>
+            <button type="submit" class="btn bg-gradient-primary"><i class="fa fa-check"></i>&nbsp;&nbsp;Sell</button>
             <a href="#" type="button" class="btn bg-gradient-success"><i class="fas fa-print"></i>&nbsp;&nbsp;Print Invoice</a>
         </form>
     </div>
@@ -103,7 +103,7 @@
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header pb-0">
-                <h6>Detail Transaksi Pembelian</h6>
+                <h6>Detail Transaksi Penjualan</h6>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-3">
@@ -148,7 +148,7 @@
                                     <td>
                                         <div class="d-flex px-2 py-1">
                                             <div>
-                                                <img src="{{ asset('assets/img/icon-sampah.png') }}" class="avatar avatar-sm me-3"
+                                                <img src="{{ asset('assets/img/sparkling.gif') }}" class="avatar avatar-sm me-3"
                                                     alt="user1">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
@@ -166,7 +166,7 @@
                                         <span class="text-xs font-weight-bold">{{ number_format($o->harga, 0, ',', '.') }}</span>
                                     </td>
                                     <td class="align-middle">
-                                        <a href="{{ route('transaksi-pembelian.delete', $o->id_transaksi) }}" data-toggle="tooltip" data-placement="top" title="Hapus" onclick="return tanya('Yakin hapus transaksi {{ $o->name }} {{ $o->qty }} {{ $o->satuan }}?')">
+                                        <a href="{{ route('transaksi-penjualan.delete', $o->id_transaksi) }}" data-toggle="tooltip" data-placement="top" title="Hapus" onclick="return tanya('Yakin hapus transaksi {{ $o->name }} {{ $o->qty }} {{ $o->satuan }}?')">
                                             <i class="fas fa-trash" style="color: Crimson;"></i>
                                         </a>
                                     </td>
@@ -190,20 +190,20 @@
     </div>
 </div>
 
-<!-- Pengepul Modal -->
-<div style="z-index: 9999;" class="modal fade" id="pengepulData" tabindex="-1" role="dialog" aria-labelledby="pengepulDataLabel"
+<!-- Supplier Modal -->
+<div style="z-index: 9999;" class="modal fade" id="supplierData" tabindex="-1" role="dialog" aria-labelledby="supplierDataLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="pengepulDataLabel">Pilih Pengepul</h5>
+                <h5 class="modal-title" id="supplierDataLabel">Pilih Supplier</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="table-responsive p-3">
-                    <table class="table align-items-center mb-0" id="dataTablePengepul">
+                    <table class="table align-items-center mb-0" id="dataTableSupplier">
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
@@ -222,15 +222,15 @@
                         </tfoot>
                         <tbody>
                             @php($no = 1)
-                            @forelse($pengepul as $o)
-                            <tr data-id="{{ $o->id }}" data-name="{{ $o->name }}" class="pilihPengepul">
+                            @forelse($supplier as $o)
+                            <tr data-id="{{ $o->id }}" data-name="{{ $o->name }}" class="pilihSupplier">
                             <td>
                                     <span class="text-xs font-weight-bold">{{ $no++ }}</span>
                                 </td>
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                            <img src="{{ asset('assets/img/icon-pengepul.png') }}" class="avatar avatar-sm me-3"
+                                            <img src="{{ asset('assets/img/icon-supplier.png') }}" class="avatar avatar-sm me-3"
                                                 alt="user1">
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
@@ -263,15 +263,15 @@
     </div>
 </div>
 
-<a href="{{ route('pembelian.index') }}" type="button" class="btn bg-gradient-info"><i class="fas fa-history"></i>&nbsp;&nbsp;History</a>
+<a href="{{ route('penjualan.index') }}" type="button" class="btn bg-gradient-info"><i class="fas fa-history"></i>&nbsp;&nbsp;History</a>
 
-<!-- Sampah Plastik Modal -->
+<!-- Sampah Cacah Modal -->
 <div style="z-index: 9999;" class="modal fade" id="sampahData" tabindex="-1" role="dialog" aria-labelledby="sampahDataLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="sampahDataLabel">Pilih Sampah Plastik</h5>
+                <h5 class="modal-title" id="sampahDataLabel">Pilih Sampah Cacah</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -283,7 +283,6 @@
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (kg)
                                 </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (gram)
@@ -296,7 +295,6 @@
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (kg)
                                 </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (gram)
@@ -323,7 +321,7 @@
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                            <img src="{{ asset('assets/img/icon-sampah.png') }}"
+                                            <img src="{{ asset('assets/img/sparkling.gif') }}"
                                                 class="avatar avatar-sm me-3" alt="user1">
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
@@ -331,24 +329,6 @@
                                             <p class="text-xs text-secondary mb-0">{{ number_format($o->stock * 1000, 0, ',', '.') }} Gram</p>
                                         </div>
                                     </div>
-                                </td>
-                                <td>
-                                    <p class="text-xs font-weight-bold mb-0">{{ $o->type }}</p>
-                                    @if ($o->type == 'PETE')
-                                    <p class="text-xs text-secondary mb-0">Polyethylene Terephthalate</p>
-                                    @elseif ($o->type == 'HDPE')
-                                    <p class="text-xs text-secondary mb-0">High Density Polyethylene</p>
-                                    @elseif ($o->type == 'PVC')
-                                    <p class="text-xs text-secondary mb-0">Polyvinyl Chloride</p>
-                                    @elseif ($o->type == 'LDPE')
-                                    <p class="text-xs text-secondary mb-0">Low Density Polyethylene</p>
-                                    @elseif ($o->type == 'PP')
-                                    <p class="text-xs text-secondary mb-0">Polypropylene</p>
-                                    @elseif ($o->type == 'PS')
-                                    <p class="text-xs text-secondary mb-0">Polystyrene</p>
-                                    @else
-                                    <p class="text-xs text-secondary mb-0">Other</p>
-                                    @endif
                                 </td>
                                 <td>
                                     <span
@@ -370,7 +350,6 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -388,15 +367,15 @@
     } );
 
     $(document).ready( function () {
-        $('#dataTablePengepul').DataTable();
+        $('#dataTableSupplier').DataTable();
     } );
 </script>
 
 <script>
-    $(document).on('click', '.pilihPengepul', function (e) {
-        $('#pengepul_id').val($(this).attr('data-id'));
-        $('#pengepul_name').val($(this).attr('data-name'));
-        $('#pengepulData').modal('hide');
+    $(document).on('click', '.pilihSupplier', function (e) {
+        $('#supplier_id').val($(this).attr('data-id'));
+        $('#supplier_name').val($(this).attr('data-name'));
+        $('#supplierData').modal('hide');
     });
 </script>
 

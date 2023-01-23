@@ -74,6 +74,17 @@
         @endif
 
     @elseif(Route::is('pembelian.*'))
-        @include('component.pembelian-transaksi')
+        @if(Route::is('pembelian.index'))
+            @include('component.pembelian-data')
+        @else
+            @include('component.pembelian-transaksi')
+        @endif
+
+    @elseif(Route::is('penjualan.*'))
+        @if(Route::is('penjualan.index'))
+            @include('component.penjualan-data')
+        @else
+            @include('component.penjualan-transaksi')
+        @endif
     @endif
 @endsection

@@ -20,7 +20,9 @@ class PembelianController extends Controller
      */
     public function index()
     {
-        // 
+        $data = Pembelian::join('pengepuls','pembelians.pengepul_id','=','pengepuls.id')
+        ->orderBy('date','desc')->get();
+        return view('page', compact('data'));
     }
 
     public function pembelianTransaction($invoice = null){
@@ -31,11 +33,13 @@ class PembelianController extends Controller
         if ($invoice == null) {
             $random = Carbon::now('GMT+8')->format('YmdHis');
             $count = Pembelian::count();
-            $invoice = 'INV-'.$random.$count;
+            $invoice = 'INV-'.$random.$count.'B';
             $data = 'empty';
             $id_pembelian = 0;
             $total = 0;
-            return view('page',compact('now','pengepul','sampah','data','invoice','id_pembelian','total'));
+            $pengepulName = null;
+            $pengepulId = null;
+            return view('page',compact('now','pengepul','sampah','data','invoice','id_pembelian','total','pengepulId','pengepulName'));
         } else {
             $data = TransaksiPembelian::join('sampah_plastiks','transaksi_pembelians.sampah_plastik_id','=','sampah_plastiks.id')
             ->join('pembelians','transaksi_pembelians.pembelian_id','=','pembelians.id')
@@ -44,9 +48,16 @@ class PembelianController extends Controller
             ->orderBy('transaksi_pembelians.created_at','desc')
             ->get();
 
+            $pengepulName = Pembelian::join('pengepuls','pembelians.pengepul_id','pengepuls.id')
+            ->where('invoice',$invoice)->pluck('pengepuls.name');
+            $pengepulName = $pengepulName[0];
+
+            $pengepulId = Pembelian::where('invoice',$invoice)->pluck('pengepul_id');
+            $pengepulId = $pengepulId[0];
+
             $id_pembelian = Pembelian::where('invoice',$invoice)->sum('id');
             $total = Pembelian::where('invoice',$invoice)->sum('total');
-            return view('page',compact('now','pengepul','sampah','data','invoice','id_pembelian','total'));
+            return view('page',compact('now','pengepul','sampah','data','invoice','id_pembelian','total','pengepulId','pengepulName'));
         }
     }
 
@@ -70,15 +81,19 @@ class PembelianController extends Controller
     {
         // Cek radio button
         if ($request->berat == "gram") {
-            $qty = $request->qty / 1000;
+            $stok = ($request->stock + $request->qty) / 1000;
             $satuan = "Gram";
             $harga = $request->qty * $request->hargag;
         } elseif ($request->berat == "kg") {
-            $qty = $request->qty;
+            $qtyGram = $request->qty * 1000;
+            $s = $request->stock + $qtyGram;
+            $stok = $s / 1000;
             $satuan = "Kg";
             $harga = $request->qty * $request->hargakg;
         } else {
-            $qty = $request->qty;
+            $qtyGram = $request->qty * 1000;
+            $s = $request->stock + $qtyGram;
+            $stok = $s / 1000;
             $satuan = "Kg";
             $harga = $request->qty * $request->hargakg;
         }
@@ -91,7 +106,7 @@ class PembelianController extends Controller
             $data->pembelian_id = $request->id_pembelian;
             $data->sampah_plastik_id = $request->sampah_id;
             $data->date = $request->date;
-            $data->qty = $qty;
+            $data->qty = $request->qty;
             $data->satuan = $satuan;
             $data->harga = $harga;
             $data->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
@@ -103,6 +118,11 @@ class PembelianController extends Controller
             $pembelian = Pembelian::find($request->id_pembelian);
             $pembelian->total = $total;
             $pembelian->update();
+
+            // Update Stock
+            $updateStock = SampahPlastik::find($request->sampah_id);
+            $updateStock->stock = $stok;
+            $updateStock->update();
 
             return redirect('pembelian-transaction/'.$request->invoice)->withInput();
         } else {
@@ -121,11 +141,16 @@ class PembelianController extends Controller
             $data->pembelian_id = $id_pembelian;
             $data->sampah_plastik_id = $request->sampah_id;
             $data->date = $request->date;
-            $data->qty = $qty;
+            $data->qty = $request->qty;
             $data->satuan = $satuan;
             $data->harga = $harga;
             $data->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
             $data->save();
+
+            // Update Stock
+            $updateStock = SampahPlastik::find($request->sampah_id);
+            $updateStock->stock = $stok;
+            $updateStock->update();
 
             return redirect('pembelian-transaction/'.$request->invoice)->withInput();
         }
