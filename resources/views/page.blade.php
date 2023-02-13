@@ -9,6 +9,11 @@
         <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
         @endpush
 
+        <livewire:info-sampah-cacah/>
+        <livewire:info-sampah-plastik/>
+        <livewire:info-penjualan/>
+        <livewire:info-pembelian/>
+
     @elseif(Route::is('user.*'))
         @if(Route::is('user.edit'))
             @include('component.user-edit')

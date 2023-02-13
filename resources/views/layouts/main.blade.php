@@ -24,6 +24,8 @@
 
   
   @stack('after-css')
+
+  @livewireStyles
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
@@ -75,6 +77,8 @@
   @include('sweetalert::alert')
 
   @stack('after-script')
+
+  @livewireStyles
 </body>
 
 </html>
