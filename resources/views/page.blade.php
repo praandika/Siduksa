@@ -9,10 +9,22 @@
         <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
         @endpush
 
-        <livewire:info-sampah-cacah/>
-        <livewire:info-sampah-plastik/>
-        <livewire:info-penjualan/>
-        <livewire:info-pembelian/>
+        <div class="row">
+            <livewire:info-sampah-cacah/>
+            <livewire:info-sampah-plastik/>
+            <livewire:info-penjualan/>
+            <livewire:info-pembelian/>
+        </div>
+
+        <div class="row mt-4">
+            <livewire:chart-penjualan/>
+        </div>
+
+        <div class="row mt-4">
+            <livewire:top-sales/>
+            <livewire:stok-sampah/>
+            <livewire:stok-cacah/>
+        </div>
 
     @elseif(Route::is('user.*'))
         @if(Route::is('user.edit'))

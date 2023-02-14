@@ -16,7 +16,7 @@ class InfoPembelian extends Component
         $total = Pembelian::whereYear('date', $year)->sum('total');
         $totalYes = Pembelian::where('date', $yesterday)->sum('total');
         $totalToday = Pembelian::where('date', $today)->sum('total');
-        if ($totalToday == 0 || $totalToday == null) {
+        if ($totalToday == 0 || $totalToday == null || $totalYes == 0 || $totalYes == null) {
             $percent = 0;
         } else {
             $percent = (($totalToday / $totalYes)*100)-1;

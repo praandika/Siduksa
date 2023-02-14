@@ -16,10 +16,10 @@ class InfoPenjualan extends Component
         $total = Penjualan::whereYear('date', $year)->sum('total');
         $totalYes = Penjualan::where('date', $yesterday)->sum('total');
         $totalToday = Penjualan::where('date', $today)->sum('total');
-        if ($totalToday == 0 || $totalToday == null) {
+        if ($totalToday == 0 || $totalToday == null || $totalYes == 0 || $totalYes == null) {
             $percent = 0;
         } else {
-            $percent = (($totalToday / $totalYes)*100)-1;
+            $percent = (((float)$totalToday / (float)$totalYes)*100)-1;
         }
         
         return view('livewire.info-penjualan', compact('year','total','percent'));
