@@ -103,5 +103,8 @@
         @else
             @include('component.penjualan-transaksi')
         @endif
+
+    @elseif(Route::is('report'))
+        @include('component.laporan')
     @endif
 @endsection

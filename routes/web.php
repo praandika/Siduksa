@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\KonversiController;
 use App\Http\Controllers\MesinController;
 use App\Http\Controllers\PembelianController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\PengepulController;
 use App\Http\Controllers\PenjadwalanController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\PrintController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SampahCacahController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
@@ -87,5 +89,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/transaksi-penjualan/delet
 // Logout Action
 Route::get('/logoutaction', [UserController::class, 'logoutAction'])->name('logout.action');
 
+// Laporan
+Route::middleware(['auth:sanctum', 'verified'])->get('/report/{param}', [ReportController::class, 'report'])->name('report');
+
 // Print PDF
 Route::middleware(['auth:sanctum', 'verified'])->get('/print-invoice/{param}/{invoice}', [PrintController::class, 'invoice'])->name('print.invoice');
+
+// Export Excel
+Route::middleware(['auth:sanctum', 'verified'])->get('/export/{param}', [ExportController::class, 'export'])->name('export');

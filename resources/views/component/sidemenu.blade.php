@@ -159,12 +159,12 @@
                 </div>
             </div>
         </div>
-        <a href="#" target="_blank"
+        <a href="{{ route('report','produksi') }}" target="_blank"
             class="btn btn-dark btn-sm w-100 mb-3">Laporan Produksi</a>
         <a class="btn btn-primary btn-sm mb-3 w-100"
-            href="#" type="button">Laporan
+            href="{{ route('report','penjualan') }}" type="button">Laporan
             Penjualan</a>
-        <a href="#" target="_blank"
+        <a href="{{ route('report','pembelian') }}" target="_blank"
             class="btn btn-danger btn-sm w-100 mb-3">Laporan Pembelian</a>
     </div>
     @endif
