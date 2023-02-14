@@ -93,7 +93,7 @@
             </div>
 
             <button type="submit" class="btn bg-gradient-primary"><i class="fa fa-check"></i>&nbsp;&nbsp;Sell</button>
-            <a href="#" type="button" class="btn bg-gradient-success"><i class="fas fa-print"></i>&nbsp;&nbsp;Print Invoice</a>
+            <a href="{{ route('print.invoice',['param' => 'penjualan','invoice' => $invoice]) }}" type="button" class="btn bg-gradient-success" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp;Print Invoice</a>
         </form>
     </div>
 </div>

@@ -6,7 +6,7 @@
                     <div class="numbers">
                         <p class="text-sm mb-0 text-uppercase font-weight-bold">Sampah Plastik</p>
                         <h5 class="font-weight-bolder">
-                            {{ $stok }}
+                            {{ $stok }} Kg
                         </h5>
                         <p class="mb-0">
                             <span class="text-success text-sm font-weight-bolder">Rp {{ number_format($totalHarga, 0, ',','.') }}</span>

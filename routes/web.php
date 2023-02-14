@@ -7,6 +7,7 @@ use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PengepulController;
 use App\Http\Controllers\PenjadwalanController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\PrintController;
 use App\Http\Controllers\SampahCacahController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
@@ -85,3 +86,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/transaksi-penjualan/delet
 
 // Logout Action
 Route::get('/logoutaction', [UserController::class, 'logoutAction'])->name('logout.action');
+
+// Print PDF
+Route::middleware(['auth:sanctum', 'verified'])->get('/print-invoice/{param}/{invoice}', [PrintController::class, 'invoice'])->name('print.invoice');
