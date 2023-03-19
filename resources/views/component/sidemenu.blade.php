@@ -58,12 +58,12 @@
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Produksi</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::is('konversi.*') ? 'active' : '' }}" href="{{ route('konversi.index') }}">
+                <a class="nav-link {{ Route::is('pemilahan.*') ? 'active' : '' }}" href="{{ route('pemilahan.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-scissors text-primary text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Konversi</span>
+                    <span class="nav-link-text ms-1">Pemilahan</span>
                 </a>
             </li>
             <li class="nav-item">

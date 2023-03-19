@@ -19,7 +19,6 @@ class SampahCacahSeeder extends Seeder
             'name' => 'Sampah Cacah',
             'price_kg' => 35000,
             'price_gram' => 35,
-            'price_pcs' => 0,
             'stock' => 10,
         ]);
     }

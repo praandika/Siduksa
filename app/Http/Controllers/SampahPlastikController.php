@@ -38,15 +38,13 @@ class SampahPlastikController extends Controller
     public function store(Request $request)
     {
         $kg = ($request->price_kg == '') ? 0 : $request->price_kg ; 
-        $gram = ($request->price_gram == '') ? 0 : $request->price_gram ; 
-        $pcs = ($request->price_pcs == '') ? 0 : $request->price_pcs ; 
+        $gram = ($request->price_gram == '') ? 0 : $request->price_gram ;
 
         $data = new SampahPlastik;
         $data->name = $request->name;
         $data->type = $request->type;
         $data->price_kg = $kg;
         $data->price_gram = $gram;
-        $data->price_pcs = $pcs;
         $data->stock = 0;
         $data->save();
         toast('Data sampah plastik berhasil disimpan','success');
@@ -86,14 +84,12 @@ class SampahPlastikController extends Controller
     {
         $kg = ($request->price_kg == '') ? 0 : $request->price_kg ; 
         $gram = ($request->price_gram == '') ? 0 : $request->price_gram ; 
-        $pcs = ($request->price_pcs == '') ? 0 : $request->price_pcs ;
         
         $data = SampahPlastik::find($sampahPlastik->id);
         $data->name = $request->name;
         $data->type = $request->type;
         $data->price_kg = $kg;
         $data->price_gram = $gram;
-        $data->price_pcs = $pcs;
         $data->update();
         toast('Data sampah plastik berhasil diubah','success');
         return redirect()->back();

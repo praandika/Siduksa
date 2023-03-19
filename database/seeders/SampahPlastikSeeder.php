@@ -20,7 +20,6 @@ class SampahPlastikSeeder extends Seeder
             'type' => 'PETE',
             'price_kg' => 20000,
             'price_gram' => 20,
-            'price_pcs' => 0,
             'stock' => 50,
         ]);
     }

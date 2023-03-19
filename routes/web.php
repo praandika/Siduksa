@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\KonversiController;
+use App\Http\Controllers\PemilahanController;
 use App\Http\Controllers\MesinController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PengepulController;
@@ -67,6 +68,10 @@ Route::middleware(['auth:sanctum', 'verified'])->resource('sampah-cacah', Sampah
 // Konversi
 Route::middleware(['auth:sanctum', 'verified'])->resource('konversi', KonversiController::class);
 // END Konversi
+
+// Pemilahan
+Route::middleware(['auth:sanctum', 'verified'])->resource('pemilahan', PemilahanController::class);
+// END Pemilahan
 
 // Penjadwalan
 Route::middleware(['auth:sanctum', 'verified'])->resource('penjadwalan', PenjadwalanController::class);

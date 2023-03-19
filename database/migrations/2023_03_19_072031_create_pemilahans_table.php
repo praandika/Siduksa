@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sampah_cacahs', function (Blueprint $table) {
+        Schema::create('pemilahans', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->float('stock');
-            $table->integer('price_kg');
-            $table->integer('price_gram');
+            $table->unsignedInteger('sampah_plastik_id');
+            $table->float('total_weight');
+            $table->string('satuan');
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sampah_cacahs');
+        Schema::dropIfExists('pemilahans');
     }
 };
