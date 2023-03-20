@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Konversi;
 use App\Models\Mesin;
 use App\Models\SampahCacah;
+use App\Models\SampahPlastik;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -20,13 +21,13 @@ class PenjadwalanController extends Controller
     public function index()
     {
         $now = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
-        $data = Penjadwalan::join('konversis','penjadwalans.konversi_id','=','konversis.id')
+        $data = Penjadwalan::join('sampah_plastiks','penjadwalans.sampah_plastik_id','=','sampah_plastiks.id')
         ->join('mesins','penjadwalans.mesin_id','=','mesins.id')
-        ->select('konversis.id as konversi_id', 'konversis.recovery_factor', 'mesins.id as mesin_id', 'mesins.name as mesin_name', 'mesins.status as mesin_status', 'penjadwalans.*')
+        ->select('mesins.id as mesin_id', 'mesins.name as mesin_name', 'mesins.status as mesin_status', 'penjadwalans.*')
         ->orderBy('penjadwalans.date_stock_in','desc')->get();
-        $konversi = Konversi::where('status','new')->orderBy('id','desc')->get();
+        $sampahPlastik = SampahPlastik::where('type','!=','Campuran')->get();
         $mesin = Mesin::where('status','offline')->orderBy('name','asc')->get();
-        return view('page', compact('data','konversi','mesin','now'));
+        return view('page', compact('data','sampahPlastik','mesin','now'));
     }
 
     /**

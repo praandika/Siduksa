@@ -30,11 +30,11 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">Pilih Data Konversi</label>
-                        <input class="form-control" type="text" name="konversi" id="konversi" value="{{ old('konversi') }}"
-                            placeholder="Pilih data konversi..." data-bs-toggle="modal" data-bs-target="#konversiModal"
+                        <label for="example-text-input" class="form-control-label">Pilih Data Sampah</label>
+                        <input class="form-control" type="text" name="sampah" id="sampah" value="{{ old('sampah') }}"
+                            placeholder="Pilih data sampah..." data-bs-toggle="modal" data-bs-target="#sampahModal"
                             required autofocus readonly>
-                        <input type="hidden" name="konversi_id" id="konversi_id" required>
+                        <input type="hidden" name="sampah_id" id="sampah_id" required>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -126,38 +126,36 @@
 </div>
 <!-- END Mesin Modal -->
 
-<!-- Konversi Modal -->
-<div style="z-index: 9999;" class="modal fade" id="konversiModal" tabindex="-1" role="dialog" aria-labelledby="konversiModalLabel"
+<!-- sampah Modal -->
+<div style="z-index: 9999;" class="modal fade" id="sampahModal" tabindex="-1" role="dialog" aria-labelledby="sampahModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="konversiModalLabel">Pilih Konversi</h5>
+                <h5 class="modal-title" id="sampahModalLabel">Pilih sampah</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="table-responsive p-3">
-                    <table class="table align-items-center mb-0" id="tableKonversi">
+                    <table class="table align-items-center mb-0" id="tablesampah">
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sampah</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Recovery Factor</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sampah</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Recovery Factor</th>
                             </tr>
                         </tfoot>
                         <tbody>
                             @php($no = 1)
-                            @forelse($konversi as $o)
-                            <tr class="pilihKonversi" data-konversi_id="{{ $o->id }}" data-konversi_name="{{ $o->sampahPlastik->name }}" data-first_stock="{{ $o->total_weight * 1000 }}">
+                            @forelse($sampahPlastik as $o)
+                            <tr class="pilihSampah" data-sampah_id="{{ $o->id }}" data-sampah_name="{{ $o->name }}" data-first_stock="{{ $o->total_weight * 1000 }}">
                                 <td>
                                     <span class="text-xs font-weight-bold">{{ $no++ }}</span>
                                 </td>
@@ -226,7 +224,7 @@
 
 <script>
     $(document).ready( function () {
-        $('#tableKonversi').DataTable();
+        $('#tablesampah').DataTable();
     } );
 
     $(document).ready( function () {

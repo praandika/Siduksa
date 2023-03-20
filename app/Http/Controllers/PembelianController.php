@@ -6,6 +6,7 @@ use App\Models\Pembelian;
 use App\Http\Controllers\Controller;
 use App\Models\Pemilahan;
 use App\Models\Pengepul;
+use App\Models\Penjadwalan;
 use App\Models\SampahPlastik;
 use App\Models\TransaksiPembelian;
 use Carbon\Carbon;
@@ -85,18 +86,21 @@ class PembelianController extends Controller
             $stok = ($request->stock + $request->qty) / 1000;
             $satuan = "Gram";
             $harga = $request->qty * $request->hargag;
+            $jadwalQty = $request->qty / 1000;
         } elseif ($request->berat == "kg") {
             $qtyGram = $request->qty * 1000;
             $s = $request->stock + $qtyGram;
             $stok = $s / 1000;
             $satuan = "Kg";
             $harga = $request->qty * $request->hargakg;
+            $jadwalQty = $request->qty;
         } else {
             $qtyGram = $request->qty * 1000;
             $s = $request->stock + $qtyGram;
             $stok = $s / 1000;
             $satuan = "Kg";
             $harga = $request->qty * $request->hargakg;
+            $jadwalQty = $request->qty;
         }
 
         // Cek if Sampah Campuran
@@ -131,6 +135,7 @@ class PembelianController extends Controller
             $pembelian = Pembelian::find($request->id_pembelian);
             $pembelian->total = $total;
             $pembelian->update();
+            
 
             if ($request->cek != "Campuran") {
                 // Update Stock
@@ -139,7 +144,6 @@ class PembelianController extends Controller
                 $updateStock->update();
             }
 
-            return redirect('pembelian-transaction/'.$request->invoice)->withInput();
         } else {
             $pembelian = new Pembelian;
             $pembelian->user_id = Auth::user()->id;
@@ -168,9 +172,9 @@ class PembelianController extends Controller
                 $updateStock->stock = $stok;
                 $updateStock->update();
             }
-
-            return redirect('pembelian-transaction/'.$request->invoice)->withInput();
         }
+
+        return redirect('pembelian-transaction/'.$request->invoice)->withInput();
         
     }
 

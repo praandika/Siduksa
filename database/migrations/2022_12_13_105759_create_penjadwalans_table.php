@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('penjadwalans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('mesin_id');
-            $table->unsignedInteger('konversi_id');
+            $table->unsignedInteger('mesin_id')->nullable();
+            $table->unsignedInteger('sampah_plastik_id');
+            $table->float('total_weight');
+            $table->string('recovery_factor');
             $table->float('first_stock');
             $table->float('last_stock');
             $table->dateTime('date_stock_in');
