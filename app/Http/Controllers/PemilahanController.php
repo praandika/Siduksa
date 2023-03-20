@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pemilahan;
 use App\Http\Controllers\Controller;
+use App\Models\SampahPlastik;
 use Illuminate\Http\Request;
 
 class PemilahanController extends Controller
@@ -59,7 +60,8 @@ class PemilahanController extends Controller
      */
     public function edit(Pemilahan $pemilahan)
     {
-        //
+        $sampahPlastik = SampahPlastik::where('type','!=','Campuran')->get();
+        return view('page', compact('pemilahan','sampahPlastik'));
     }
 
     /**
@@ -71,7 +73,42 @@ class PemilahanController extends Controller
      */
     public function update(Request $request, Pemilahan $pemilahan)
     {
-        //
+        if ($request->satuan == 'Kg') {
+            $totalWeight = $request->totalWeight * 1000;
+            $countWeight = $totalWeight - $request->qty; //Gram
+            $remainingWeight = $countWeight / 1000;
+        } else {
+            $totalWeight = $request->totalWeight;
+            $countWeight = $totalWeight - $request->qty;
+            $remainingWeight = $countWeight;
+        }
+        
+        // dd($countWeight);
+
+        if ($countWeight < 0) {
+            alert()->error('Oops...','Quantity melebihi total berat!');
+            return redirect()->back();
+        } else {
+            if ($countWeight == 0) {
+                $status = 'Sorted';
+            } else {
+                $status = 'Sorting on progress';
+            }
+            
+            $pemilahan = Pemilahan::find($pemilahan->id);
+            $pemilahan->total_weight = $remainingWeight;
+            $pemilahan->status = $status;
+            $pemilahan->update();
+    
+            // Update Stock
+            $stock = ($request->stock + $request->qty) / 1000;
+            $updateStock = SampahPlastik::find($request->idSampah);
+            $updateStock->stock = $stock;
+            $updateStock->update();
+    
+            toast('Sampah berhasil dipilah');
+            return redirect()->back();
+        }
     }
 
     /**

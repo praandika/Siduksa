@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             SupplierSeeder::class,
             PengepulSeeder::class,
             MesinSeeder::class,
+            SampahPlastikSeeder::class,
         ]);
     }
 }

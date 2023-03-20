@@ -61,11 +61,16 @@
                                 <td>
                                     <span class="text-xs font-weight-bold">{{ ucwords($o->status) }}</span>
                                 </td>
+                                @if($o->status == 'Sorted')
+                                <td class="align-middle">
+                                </td>
+                                @else
                                 <td class="align-middle">
                                     <a href="{{ route('pemilahan.edit', $o->id) }}" data-toggle="tooltip" data-placement="top" title="Pilah">
                                         <i class="fas fa-edit" style="color: DodgerBlue;"></i>
                                     </a>
                                 </td>
+                                @endif
                             </tr>
                             @empty
                             <tr>
