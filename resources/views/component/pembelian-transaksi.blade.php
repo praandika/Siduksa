@@ -59,7 +59,7 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Harga / Kg</label>
-                        <input type="hidden" name="hargakg" id="hargakg" required>
+                        <input type="hidden" class="form-control" name="hargakg" id="hargakg" required>
                         <br>
                         <span style="font-size: 15px;" id="displayHargaKg"></span>
                     </div>
@@ -67,7 +67,7 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Harga / Gram</label>
-                        <input type="hidden" name="hargag" id="hargag" required>
+                        <input type="hidden" class="form-control" name="hargag" id="hargag" required>
                         <br>
                         <span style="font-size: 15px;" id="displayHargaG"></span>
                     </div>
@@ -91,6 +91,8 @@
                     </div>
                 </div>
             </div>
+
+            <input type="hidden" id="cek" name="cek">
 
             <button type="submit" class="btn bg-gradient-primary"><i class="fa fa-check"></i>&nbsp;&nbsp;Buy</button>
             <a href="{{ route('print.invoice',['param' => 'pembelian','invoice' => $invoice]) }}" type="button" class="btn bg-gradient-success" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp;Print Invoice</a>
@@ -288,8 +290,6 @@
                                 </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (gram)
                                 </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (pcs)
-                                </th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -300,8 +300,6 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (kg)
                                 </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (gram)
-                                </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (pcs)
                                 </th>
                             </tr>
                         </tfoot>
@@ -316,7 +314,8 @@
                             data-hargag="{{ $o->price_gram }}"
                             data-displaykg="Rp {{ number_format($o->price_kg, 0, ',', '.') }} /Kg"
                             data-displayg="Rp {{ number_format($o->price_gram, 0, ',', '.') }} /Gram"
-                            data-displaystok="{{ number_format($o->stock * 1000, 0, ',', '.') }} Gram" class="pilihSampah">
+                            data-displaystok="{{ number_format($o->stock * 1000, 0, ',', '.') }} Gram"
+                            data-type="{{ $o->type }}" class="pilihSampah">
                                 <td>
                                     <span class="text-xs font-weight-bold">{{ $no++ }}</span>
                                 </td>
@@ -346,6 +345,8 @@
                                     <p class="text-xs text-secondary mb-0">Polypropylene</p>
                                     @elseif ($o->type == 'PS')
                                     <p class="text-xs text-secondary mb-0">Polystyrene</p>
+                                    @elseif ($o->type == 'Campuran')
+                                    <p class="text-xs text-secondary mb-0">Campuran</p>
                                     @else
                                     <p class="text-xs text-secondary mb-0">Other</p>
                                     @endif
@@ -358,15 +359,10 @@
                                     <span
                                         class="text-xs font-weight-bold">{{ number_format($o->price_gram, 0, ',', '.')}}</span>
                                 </td>
-                                <td>
-                                    <span
-                                        class="text-xs font-weight-bold">{{ number_format($o->price_pcs, 0, ',', '.')}}</span>
-                                </td>
                             </tr>
                             @empty
                             <tr>
                                 <td>#</td>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -410,7 +406,23 @@
         $('#hargag').val($(this).attr('data-hargag'));
         $('#displayHargaKg').text($(this).attr('data-displaykg'));
         $('#displayHargaG').text($(this).attr('data-displayg'));
+        $('#cek').val($(this).attr('data-type'));
         $('#sampahData').modal('hide');
+
+        if ($(this).attr('data-type') == 'Campuran') {
+            $('#hargag').removeAttr("type");
+            $('#hargag').attr("type","number");
+            $('#hargakg').removeAttr("type");
+            $('#hargakg').attr("type","number");
+            $('#displayHargaKg').attr("hidden","hidden")
+            $('#displayHargaG').attr("hidden","hidden")
+        } else {
+            $('#hargag').removeAttr("type");
+            $('#hargag').attr("type","hidden");
+            $('#hargakg').attr("type","hidden");
+            $('#displayHargaKg').removeAttr("hidden")
+            $('#displayHargaG').removeAttr("hidden")
+        }
     });
 </script>
 @endpush

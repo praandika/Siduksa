@@ -104,6 +104,13 @@
             @include('component.penjualan-transaksi')
         @endif
 
+    @elseif(Route::is('pemilahan.*'))
+        @if(Route::is('pemilahan.edit'))
+            @include('component.pemilahan-edit')
+        @else
+            @include('component.pemilahan-data')
+        @endif
+
     @elseif(Route::is('report'))
         @include('component.laporan')
     @endif

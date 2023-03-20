@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Penjualan;
 use App\Models\TransaksiPembelian;
 use App\Models\TransaksiPenjualan;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PrintController extends Controller
 {

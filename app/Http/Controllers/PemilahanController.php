@@ -15,7 +15,8 @@ class PemilahanController extends Controller
      */
     public function index()
     {
-        //
+        $data = Pemilahan::orderBy('created_at', 'desc')->get();
+        return view('page', compact('data'));
     }
 
     /**

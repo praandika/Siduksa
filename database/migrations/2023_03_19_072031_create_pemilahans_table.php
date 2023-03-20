@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('pemilahans', function (Blueprint $table) {
             $table->id();
+            $table->string('invoice');
             $table->unsignedInteger('sampah_plastik_id');
             $table->float('total_weight');
             $table->string('satuan');
+            $table->integer('harga');
             $table->string('status');
             $table->timestamps();
         });

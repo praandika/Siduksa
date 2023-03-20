@@ -39,22 +39,16 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Harga (Kg)</label>
                         <input class="form-control" type="text" name="price_kg" value="{{ $sampahPlastik->price_kg }}" placeholder="Masukkan harga kg sampah plastik..." required>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Harga (Gram)</label>
                         <input class="form-control" type="text" name="price_gram" value="{{ $sampahPlastik->price_gram }}" placeholder="Masukkan harga gram sampah plastik...">
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">Harga (Pcs)</label>
-                        <input class="form-control" type="text" name="price_pcs" value="{{ $sampahPlastik->price_pcs }}" placeholder="Masukkan harga pcs sampah plastik...">
                     </div>
                 </div>
             </div>

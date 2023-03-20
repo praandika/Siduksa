@@ -68,6 +68,8 @@
                                     <p class="text-xs text-secondary mb-0">Polypropylene</p>
                                     @elseif ($o->type == 'PS')
                                     <p class="text-xs text-secondary mb-0">Polystyrene</p>
+                                    @elseif ($o->type == 'Campuran')
+                                    <p class="text-xs text-secondary mb-0">Campuran</p>
                                     @else
                                     <p class="text-xs text-secondary mb-0">Other</p>
                                     @endif

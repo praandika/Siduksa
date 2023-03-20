@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pembelian;
 use App\Http\Controllers\Controller;
+use App\Models\Pemilahan;
 use App\Models\Pengepul;
 use App\Models\SampahPlastik;
 use App\Models\TransaksiPembelian;
@@ -98,6 +99,18 @@ class PembelianController extends Controller
             $harga = $request->qty * $request->hargakg;
         }
 
+        // Cek if Sampah Campuran
+        if ($request->cek == "Campuran") {
+            $pemilahan = new Pemilahan;
+            $pemilahan->invoice = $request->invoice;
+            $pemilahan->sampah_plastik_id = $request->sampah_id;
+            $pemilahan->total_weight = $request->qty;
+            $pemilahan->satuan = $satuan;
+            $pemilahan->harga = $harga;
+            $pemilahan->status = 'unsorted';
+            $pemilahan->save();
+        }
+
         // Cek If Invoice already store
         $cekInvoice = Pembelian::where('invoice',$request->invoice)->count();
 
@@ -119,10 +132,12 @@ class PembelianController extends Controller
             $pembelian->total = $total;
             $pembelian->update();
 
-            // Update Stock
-            $updateStock = SampahPlastik::find($request->sampah_id);
-            $updateStock->stock = $stok;
-            $updateStock->update();
+            if ($request->cek != "Campuran") {
+                // Update Stock
+                $updateStock = SampahPlastik::find($request->sampah_id);
+                $updateStock->stock = $stok;
+                $updateStock->update();
+            }
 
             return redirect('pembelian-transaction/'.$request->invoice)->withInput();
         } else {
@@ -147,10 +162,12 @@ class PembelianController extends Controller
             $data->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
             $data->save();
 
-            // Update Stock
-            $updateStock = SampahPlastik::find($request->sampah_id);
-            $updateStock->stock = $stok;
-            $updateStock->update();
+            if ($request->cek != "Campuran") {
+                // Update Stock
+                $updateStock = SampahPlastik::find($request->sampah_id);
+                $updateStock->stock = $stok;
+                $updateStock->update();
+            }
 
             return redirect('pembelian-transaction/'.$request->invoice)->withInput();
         }
