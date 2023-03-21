@@ -17,7 +17,7 @@
             @method('PUT')
             <p class="text-uppercase text-sm">Sampah Cacah Information</p>
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Nama Sampah</label>
                         <input class="form-control" type="text" name="name" value="{{ $sampahCacah->name }}" placeholder="Masukkan nama sampah cacah..." required autofocus>
@@ -33,12 +33,6 @@
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Harga (Gram)</label>
                         <input class="form-control" type="text" name="price_gram" value="{{ $sampahCacah->price_gram }}" placeholder="Masukkan harga gram sampah cacah...">
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">Harga (Pcs)</label>
-                        <input class="form-control" type="text" name="price_pcs" value="{{ $sampahCacah->price_pcs }}" placeholder="Masukkan harga pcs sampah cacah...">
                     </div>
                 </div>
                 <div class="col-md-2">

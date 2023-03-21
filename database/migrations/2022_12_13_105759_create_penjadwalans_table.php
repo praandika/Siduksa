@@ -17,8 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('mesin_id')->nullable();
             $table->unsignedInteger('sampah_plastik_id');
-            $table->float('total_weight');
-            $table->string('recovery_factor');
+            $table->string('recovery_factor')->nullable();
             $table->float('first_stock');
             $table->float('last_stock');
             $table->dateTime('date_stock_in');

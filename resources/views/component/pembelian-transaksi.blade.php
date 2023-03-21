@@ -45,7 +45,7 @@
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Sampah Plastik</label>
                         <input type="hidden" name="sampah_id" id="sampah_id">
-                        <input class="form-control" id="sampah_name" type="text" name="sampah_name" placeholder="Pilih sampah" data-bs-toggle="modal" data-bs-target="#sampahData" required>
+                        <input class="form-control" id="sampah_name" type="text" name="sampah_name" placeholder="Pilih sampah" data-bs-toggle="modal" data-bs-target="#sampahData" readonly required>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -79,15 +79,15 @@
                             <input type="radio" name="berat" id="gram" value="gram" checked><label for="gram">Gram</label> &nbsp;
                             <input type="radio" name="berat" id="kg" value="kg"><label for="kg">Kg</label>
                         </label>
-                        <input class="form-control" type="number" name="qty" required>
+                        <input class="form-control" type="number" name="qty" id="qty" onkeyup="hitungTotal();" required>
                     </div>
                 </div>
                 <div class="col-md-4"></div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Total (Rp)</label>
-                        <input class="form-control" type="number" value="{{ number_format($total, 0, ',', '.') }}" style="background-color: #f0ebb4; font-size: 50px; font-weight: bold;">
-                        <input type="hidden" name="total" value="{{ $total }}">
+                        <input class="form-control" type="number" value="{{ number_format($total, 0, ',', '.') }}" style="background-color: #f0ebb4; font-size: 50px; font-weight: bold;" id="total">
+                        <input type="hidden" name="total" id="angkaTotal" value="{{ $total }}">
                     </div>
                 </div>
             </div>
@@ -424,5 +424,32 @@
             $('#displayHargaG').removeAttr("hidden")
         }
     });
+</script>
+
+<script>
+    function hitungTotal(){
+        let berat;
+        let jumlah = 0;
+        let radios = document.getElementsByName('berat');
+        for (let radio of radios) {
+            if (radio.checked) {
+                berat = radio.value;
+            }
+        }
+        
+        let qty = document.getElementById("qty").value;
+        let total = document.getElementById("angkaTotal").value;
+        let hargag = document.getElementById("hargag").value;
+        let hargakg = document.getElementById("hargakg").value; 
+        
+        if (berat == 'gram') {
+            jumlah = (parseFloat(hargag)*parseFloat(qty)) + parseFloat(total);
+        } else {
+            jumlah = (parseFloat(hargakg)*parseFloat(qty)) + parseFloat(total);
+        }
+        
+        document.getElementById("total").value = jumlah;
+        console.log(qty, jumlah);
+    }
 </script>
 @endpush

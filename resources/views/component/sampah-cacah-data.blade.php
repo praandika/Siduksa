@@ -19,7 +19,6 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (kg)</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (gram)</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (pcs)</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
                         </thead>
@@ -29,7 +28,6 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (kg)</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (gram)</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (pcs)</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
                         </tfoot>
@@ -58,9 +56,6 @@
                                 <td>
                                     <span class="text-xs font-weight-bold">{{ number_format($o->price_gram, 0, ',', '.')}}</span>
                                 </td>
-                                <td>
-                                    <span class="text-xs font-weight-bold">{{ number_format($o->price_pcs, 0, ',', '.')}}</span>
-                                </td>
                                 <td class="align-middle">
                                     <a href="{{ route('sampah-cacah.edit', $o->id) }}" data-toggle="tooltip" data-placement="top" title="Ubah">
                                         <i class="fas fa-edit" style="color: DodgerBlue;"></i>
@@ -70,7 +65,6 @@
                             @empty
                             <tr>
                                 <td>#</td>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

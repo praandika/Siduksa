@@ -86,21 +86,18 @@ class PembelianController extends Controller
             $stok = ($request->stock + $request->qty) / 1000;
             $satuan = "Gram";
             $harga = $request->qty * $request->hargag;
-            $jadwalQty = $request->qty / 1000;
         } elseif ($request->berat == "kg") {
             $qtyGram = $request->qty * 1000;
             $s = $request->stock + $qtyGram;
             $stok = $s / 1000;
             $satuan = "Kg";
             $harga = $request->qty * $request->hargakg;
-            $jadwalQty = $request->qty;
         } else {
             $qtyGram = $request->qty * 1000;
             $s = $request->stock + $qtyGram;
             $stok = $s / 1000;
             $satuan = "Kg";
             $harga = $request->qty * $request->hargakg;
-            $jadwalQty = $request->qty;
         }
 
         // Cek if Sampah Campuran

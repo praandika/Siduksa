@@ -41,8 +41,9 @@
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Stok Awal (Gram)</label>
                         <input class="form-control" type="text" name="first_stock" id="first_stock" value="{{ old('first_stock') }}"
-                            placeholder="Stok awal..." readonly>
+                            placeholder="Stok awal...">
                     </div>
+                    <input type="hidden" name="stock" id="stock">
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
@@ -144,18 +145,20 @@
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sampah</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stock</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sampah</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stock</th>
                             </tr>
                         </tfoot>
                         <tbody>
                             @php($no = 1)
                             @forelse($sampahPlastik as $o)
-                            <tr class="pilihSampah" data-sampah_id="{{ $o->id }}" data-sampah_name="{{ $o->name }}" data-first_stock="{{ $o->total_weight * 1000 }}">
+                            <tr class="pilihSampah" data-sampah_id="{{ $o->id }}" data-sampah_name="{{ $o->name }}" data-first_stock="{{ $o->stock * 1000 }}">
                                 <td>
                                     <span class="text-xs font-weight-bold">{{ $no++ }}</span>
                                 </td>
@@ -166,13 +169,12 @@
                                                 alt="user1">
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{ $o->sampahPlastik->name }}</h6>
-                                            <p class="text-xs text-secondary mb-0">{{ $o->total_weight }} {{ $o->satuan }}</p>
+                                            <h6 class="mb-0 text-sm">{{ $o->name }}</h6>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <span class="text-xs font-weight-bold">{{ $o->recovery_factor }}</span>
+                                    <span class="text-xs font-weight-bold">{{ $o->stock }} Kg</span>
                                 </td>
                             </tr>
                             @empty
@@ -189,7 +191,7 @@
         </div>
     </div>
 </div>
-<!-- END Konversi Modal -->
+<!-- END Sampah Modal -->
 
 @push('after-script')
 <script>
@@ -214,11 +216,12 @@
         $('#mesinModal').modal('hide');
     });
 
-    $(document).on('click', '.pilihKonversi', function (e) {
-        $('#konversi_id').val($(this).attr('data-konversi_id'));
-        $('#konversi').val($(this).attr('data-konversi_name'));
+    $(document).on('click', '.pilihSampah', function (e) {
+        $('#sampah_id').val($(this).attr('data-sampah_id'));
+        $('#sampah').val($(this).attr('data-sampah_name'));
         $('#first_stock').val($(this).attr('data-first_stock'));
-        $('#konversiModal').modal('hide');
+        $('#stock').val($(this).attr('data-first_stock'));
+        $('#sampahModal').modal('hide');
     });
 </script>
 
