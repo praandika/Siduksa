@@ -55,6 +55,7 @@ class PenjadwalanController extends Controller
         $data->first_stock = $request->first_stock / 1000;
         $data->last_stock = 0;
         $data->date_stock_in = $now;
+        $data->penjadwalan_date = $now;
         $data->status = 'on progress';
         $data->save();
 

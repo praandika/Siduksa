@@ -22,6 +22,7 @@ return new class extends Migration
             $table->float('last_stock');
             $table->dateTime('date_stock_in');
             $table->dateTime('date_stock_out')->nullable();
+            $table->date('penjadwalan_date');
             $table->string('status');
             $table->timestamps();
         });

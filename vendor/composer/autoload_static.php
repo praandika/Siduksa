@@ -678,6 +678,7 @@ class ComposerStaticInit7ddb76fa76e5708f19cd5b676d748d94
         'App\\Http\\Controllers\\LogoutController' => __DIR__ . '/../..' . '/app/Http/Controllers/LogoutController.php',
         'App\\Http\\Controllers\\MesinController' => __DIR__ . '/../..' . '/app/Http/Controllers/MesinController.php',
         'App\\Http\\Controllers\\PembelianController' => __DIR__ . '/../..' . '/app/Http/Controllers/PembelianController.php',
+        'App\\Http\\Controllers\\PemilahanController' => __DIR__ . '/../..' . '/app/Http/Controllers/PemilahanController.php',
         'App\\Http\\Controllers\\PengepulController' => __DIR__ . '/../..' . '/app/Http/Controllers/PengepulController.php',
         'App\\Http\\Controllers\\PengirimanController' => __DIR__ . '/../..' . '/app/Http/Controllers/PengirimanController.php',
         'App\\Http\\Controllers\\PenjadwalanController' => __DIR__ . '/../..' . '/app/Http/Controllers/PenjadwalanController.php',

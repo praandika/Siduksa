@@ -39,6 +39,7 @@
                         @else
                         Daur ulang sampah plastik masih dalam proses <br>
                         Berat awal : {{ $penjadwalan->first_stock }} Kg
+                        <input type="hidden" name="berat_awal" value="{{ $penjadwalan->first_stock * 1000 }}">
                         @endif
                     </p>
                     <div class="author align-items-center">
@@ -59,7 +60,7 @@
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Masukkan ke...</label>
                         <input class="form-control" type="text" name="sampah_cacah" id="sampah_cacah" placeholder="Pilih sampah cacah."
-                        data-bs-toggle="modal" data-bs-target="#sampahModal" required>
+                        data-bs-toggle="modal" data-bs-target="#sampahModal" readonly required>
                         <input type="hidden" name="sampah_cacah_id" id="sampah_cacah_id">
                         <input type="hidden" name="stock" id="stock">
                     </div>
@@ -69,7 +70,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Hasil Akhir (Gram)</label>
-                        <input class="form-control" type="text" name="last_stock" id="last_stock" placeholder="Masukkan berat hasil akhir..."
+                        <input class="form-control" type="number" min="0" name="last_stock" id="last_stock" placeholder="Masukkan berat hasil akhir..."
                             required>
                     </div>
                 </div>
@@ -92,6 +93,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
                 <div class="table-responsive p-3">
                     <table class="table align-items-center mb-0" id="tablesampah">

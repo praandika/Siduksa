@@ -215,7 +215,7 @@
                             <tr>
                                 <td>
                                     <span class="text-xs font-weight-bold">{{ $no++ }}</span>
-                                </td>nvoice }}</a></span>
+                                </td>
                                 </td>
                                 <td>
                                     <div class="d-flex px-2 py-1">
@@ -242,7 +242,7 @@
                                     <span class="text-xs font-weight-bold">{{ $o->last_stock }} Kg</span>
                                 </td>
                                 <td>
-                                    <span class="text-xs font-weight-bold">{{ $o->konversi->recovery_factor }}%</span>
+                                    <span class="text-xs font-weight-bold">{{ $o->recovery_factor }}%</span>
                                 </td>
                                 <td>
                                     <span class="text-xs font-weight-bold">{{ ucwords($o->status) }}</span>

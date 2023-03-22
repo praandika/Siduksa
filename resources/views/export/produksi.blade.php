@@ -21,7 +21,7 @@
             <td>{{ $o->first_stock }} Kg</td>
             <td>{{ $o->date_stock_out }}</td>
             <td>{{ $o->last_stock }} Kg</td>
-            <td>{{ $o->konversi->recovery_factor }}%</td>
+            <td>{{ $o->recovery_factor }}%</td>
             <td>{{ ucwords($o->status) }}</td>
         </tr>
         @empty

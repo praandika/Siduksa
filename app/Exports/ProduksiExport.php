@@ -25,8 +25,8 @@ class ProduksiExport implements FromView
 
     public function view(): View{
         return view('export.produksi',[
-            'data' => Penjadwalan::whereBetween('date_stock_in', [$this->start, $this->end])
-            ->orderBy('date_stock_in','asc')->get()
+            'data' => Penjadwalan::whereBetween('penjadwalan_date', [$this->start, $this->end])
+            ->orderBy('penjadwalan_date','asc')->get()
         ]);
     }
 }

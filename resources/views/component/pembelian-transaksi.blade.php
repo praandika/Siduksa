@@ -79,7 +79,7 @@
                             <input type="radio" name="berat" id="gram" value="gram" checked><label for="gram">Gram</label> &nbsp;
                             <input type="radio" name="berat" id="kg" value="kg"><label for="kg">Kg</label>
                         </label>
-                        <input class="form-control" type="number" name="qty" id="qty" onkeyup="hitungTotal();" required>
+                        <input class="form-control" type="number" name="qty" id="qty" onkeyup="hitungTotal();" min="0" required>
                     </div>
                 </div>
                 <div class="col-md-4"></div>

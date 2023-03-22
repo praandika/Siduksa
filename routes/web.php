@@ -7,6 +7,7 @@ use App\Http\Controllers\PemilahanController;
 use App\Http\Controllers\MesinController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PengepulController;
+use App\Http\Controllers\PengirimanController;
 use App\Http\Controllers\PenjadwalanController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\PrintController;
@@ -90,6 +91,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('penjualan-transaction/{inv
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/transaksi-penjualan/delete/{id}', [TransaksiPenjualanController::class, 'delete'])->name('transaksi-penjualan.delete');
 // END Penjualan
+
+// Pengiriman
+Route::middleware(['auth:sanctum', 'verified'])->resource('pengiriman', PengirimanController::class);
+Route::middleware(['auth:sanctum', 'verified'])->get('pengiriman-done/{id?}', [PengirimanController::class, 'pengirimanDone'])->name('pengiriman.done');
+// END Pengiriman
 
 // Logout Action
 Route::get('/logoutaction', [UserController::class, 'logoutAction'])->name('logout.action');

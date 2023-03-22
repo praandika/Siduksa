@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TransaksiPembelian;
 use App\Models\Konversi;
+use App\Models\Penjadwalan;
 
 class SampahPlastik extends Model
 {
@@ -21,5 +22,10 @@ class SampahPlastik extends Model
     // Relasi to Konversi
     public function konversi(){
         return $this->hasMany(Konversi::class);
+    }
+
+    // Relasi to Penjadwalan
+    public function penjadwalan(){
+        return $this->hasMany(Penjadwalan::class);
     }
 }

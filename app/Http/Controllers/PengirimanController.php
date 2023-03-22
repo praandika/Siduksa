@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengiriman;
 use App\Http\Controllers\Controller;
+use App\Models\Mesin;
+use App\Models\SampahCacah;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PengirimanController extends Controller
@@ -15,7 +18,12 @@ class PengirimanController extends Controller
      */
     public function index()
     {
-        //
+        $sampah = SampahCacah::all();
+        $mesin = Mesin::all();
+        $now = Carbon::now('GMT+8')->format('Y-m-d');
+        $data = Pengiriman::orderBy('date','desc')->get();
+        
+        return view('page', compact('data','now','sampah','mesin'));
     }
 
     /**
@@ -25,7 +33,7 @@ class PengirimanController extends Controller
      */
     public function create()
     {
-        //
+        // 
     }
 
     /**
@@ -36,14 +44,22 @@ class PengirimanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new Pengiriman;
+        $data->production_date = $request->production_date;
+        $data->mesin_id = $request->mesin_id;
+        $data->sampah_cacah_id = $request->sampah_id;
+        $data->date = $request->date;
+        $data->status = 'shipping';
+        $data->save();
+        toast('Data pengiriman berhasil disimpan','success');
+        return redirect()->route('pengiriman.index')->with('display',true);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Pengiriman  $pengiriman
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response 
      */
     public function show(Pengiriman $pengiriman)
     {
@@ -58,7 +74,16 @@ class PengirimanController extends Controller
      */
     public function edit(Pengiriman $pengiriman)
     {
-        //
+        return view('page',compact('pengiriman'));
+    }
+
+    public function pengirimanDone($id)
+    {
+        $data = Pengiriman::find($id);
+        $data->status = 'arrived';
+        $data->update();
+        toast('Terkirim!','success');
+        return redirect()->route('pengiriman.index');
     }
 
     /**
@@ -70,7 +95,12 @@ class PengirimanController extends Controller
      */
     public function update(Request $request, Pengiriman $pengiriman)
     {
-        //
+        $data = Pengiriman::find($pengiriman->id);
+        $data->production_date = $request->production_date;
+        $data->date = $request->date;
+        $data->update();
+        toast('Data pengiriman berhasil diubah','success');
+        return redirect()->back();
     }
 
     /**

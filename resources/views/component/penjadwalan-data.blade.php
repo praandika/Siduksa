@@ -19,7 +19,7 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stok Awal</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stok Akhir</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Recovery Factor</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mesin</th>
+                                <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mesin</th> -->
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
@@ -30,7 +30,7 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stok Awal</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stok Akhir</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Recovery Factor</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Machine</th>
+                                <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mesin</th> -->
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
@@ -53,7 +53,7 @@
                                 <td>
                                     <span class="text-xs font-weight-bold">{{ $o->recovery_factor }}%</span>
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
                                             <img src="{{ $o->mesin_status == 'online' ? asset('assets/img/robot-on.gif') : asset('assets/img/robot-off.png') }}" class="avatar avatar-sm me-3"
@@ -66,7 +66,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                </td>
+                                </td> -->
                                 <td>
                                     <span class="text-xs font-weight-bold badge badge-sm {{ $o->status == 'finished' ? 'bg-gradient-primary' : 'bg-gradient-warning' }} ">{{ $o->status }}</span>
                                 </td>
@@ -90,7 +90,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
+                                <!-- <td></td> -->
                             </tr>
                             @endforelse
                         </tbody>

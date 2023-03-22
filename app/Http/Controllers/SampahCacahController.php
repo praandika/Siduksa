@@ -92,7 +92,7 @@ class SampahCacahController extends Controller
         $data->name = $request->name;
         $data->price_kg = $kg;
         $data->price_gram = $gram;
-        $data->stock = $request->stock / 1000;
+        // $data->stock = $request->stock / 1000;
         $data->update();
         toast('Data sampah cacah berhasil diubah','success');
         return redirect()->back();

@@ -25,9 +25,9 @@ class Penjualan extends Model
     }
 
     // Relasi to Pengiriman
-    public function pengiriman(){
-        return $this->hasMany(Pengiriman::class);
-    }
+    // public function pengiriman(){
+    //     return $this->hasMany(Pengiriman::class);
+    // }
 
     // Relasi to Transaksi Penjualan
     public function transaksiPenjualan(){

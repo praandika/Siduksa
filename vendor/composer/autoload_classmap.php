@@ -31,6 +31,7 @@ return array(
     'App\\Http\\Controllers\\LogoutController' => $baseDir . '/app/Http/Controllers/LogoutController.php',
     'App\\Http\\Controllers\\MesinController' => $baseDir . '/app/Http/Controllers/MesinController.php',
     'App\\Http\\Controllers\\PembelianController' => $baseDir . '/app/Http/Controllers/PembelianController.php',
+    'App\\Http\\Controllers\\PemilahanController' => $baseDir . '/app/Http/Controllers/PemilahanController.php',
     'App\\Http\\Controllers\\PengepulController' => $baseDir . '/app/Http/Controllers/PengepulController.php',
     'App\\Http\\Controllers\\PengirimanController' => $baseDir . '/app/Http/Controllers/PengirimanController.php',
     'App\\Http\\Controllers\\PenjadwalanController' => $baseDir . '/app/Http/Controllers/PenjadwalanController.php',

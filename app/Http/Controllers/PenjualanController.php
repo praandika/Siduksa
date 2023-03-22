@@ -98,61 +98,66 @@ class PenjualanController extends Controller
             $harga = $request->qty * $request->hargakg;
         }
 
-        // Cek If Invoice already store
-        $cekInvoice = Penjualan::where('invoice',$request->invoice)->count();
-
-        if ($cekInvoice > 0) {
-            $data = new TransaksiPenjualan();
-            $data->penjualan_id = $request->id_penjualan;
-            $data->sampah_cacah_id = $request->sampah_id;
-            $data->date = $request->date;
-            $data->qty = $request->qty;
-            $data->satuan = $satuan;
-            $data->harga = $harga;
-            $data->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
-            $data->save();
-
-            $total = Penjualan::where('id',$request->id_penjualan)->sum('total');
-            $total += $harga;
-
-            $penjualan = Penjualan::find($request->id_penjualan);
-            $penjualan->total = $total;
-            $penjualan->update();
-
-            // Update Stock
-            $updateStock = SampahCacah::find($request->sampah_id);
-            $updateStock->stock = $stok;
-            $updateStock->update();
-
-            return redirect('penjualan-transaction/'.$request->invoice)->withInput();
+        if ($request->qty > $request->stock) {
+            alert()->error('Oops...','Quantity melebihi stok!');
+            return redirect()->back();
         } else {
-            $penjualan = new Penjualan;
-            $penjualan->user_id = Auth::user()->id;
-            $penjualan->supplier_id = $request->supplier_id;
-            $penjualan->invoice = $request->invoice;
-            $penjualan->date = $request->date;
-            $penjualan->total = $harga;
-            $penjualan->status = 'unprint';
-            $penjualan->save();
+            // Cek If Invoice already store
+            $cekInvoice = Penjualan::where('invoice',$request->invoice)->count();
 
-            $id_penjualan = Penjualan::where('invoice',$request->invoice)->sum('id');
+            if ($cekInvoice > 0) {
+                $data = new TransaksiPenjualan();
+                $data->penjualan_id = $request->id_penjualan;
+                $data->sampah_cacah_id = $request->sampah_id;
+                $data->date = $request->date;
+                $data->qty = $request->qty;
+                $data->satuan = $satuan;
+                $data->harga = $harga;
+                $data->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+                $data->save();
 
-            $data = new TransaksiPenjualan;
-            $data->penjualan_id = $id_penjualan;
-            $data->sampah_cacah_id = $request->sampah_id;
-            $data->date = $request->date;
-            $data->qty = $request->qty;
-            $data->satuan = $satuan;
-            $data->harga = $harga;
-            $data->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
-            $data->save();
+                $total = Penjualan::where('id',$request->id_penjualan)->sum('total');
+                $total += $harga;
 
-            // Update Stock
-            $updateStock = SampahCacah::find($request->sampah_id);
-            $updateStock->stock = $stok;
-            $updateStock->update();
+                $penjualan = Penjualan::find($request->id_penjualan);
+                $penjualan->total = $total;
+                $penjualan->update();
 
-            return redirect('penjualan-transaction/'.$request->invoice)->withInput();
+                // Update Stock
+                $updateStock = SampahCacah::find($request->sampah_id);
+                $updateStock->stock = $stok;
+                $updateStock->update();
+
+                return redirect('penjualan-transaction/'.$request->invoice)->withInput();
+            } else {
+                $penjualan = new Penjualan;
+                $penjualan->user_id = Auth::user()->id;
+                $penjualan->supplier_id = $request->supplier_id;
+                $penjualan->invoice = $request->invoice;
+                $penjualan->date = $request->date;
+                $penjualan->total = $harga;
+                $penjualan->status = 'unprint';
+                $penjualan->save();
+
+                $id_penjualan = Penjualan::where('invoice',$request->invoice)->sum('id');
+
+                $data = new TransaksiPenjualan;
+                $data->penjualan_id = $id_penjualan;
+                $data->sampah_cacah_id = $request->sampah_id;
+                $data->date = $request->date;
+                $data->qty = $request->qty;
+                $data->satuan = $satuan;
+                $data->harga = $harga;
+                $data->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+                $data->save();
+
+                // Update Stock
+                $updateStock = SampahCacah::find($request->sampah_id);
+                $updateStock->stock = $stok;
+                $updateStock->update();
+
+                return redirect('penjualan-transaction/'.$request->invoice)->withInput();
+            }
         }
     }
 

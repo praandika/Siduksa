@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Konversi;
 use App\Models\Mesin;
+use App\Models\sampahPlastik;
 
 class Penjadwalan extends Model
 {
@@ -13,9 +13,9 @@ class Penjadwalan extends Model
 
     protected $guarded = ['id'];
 
-    // Relasi to Konversi, penjadwalan has konversi_id
-    public function konversi(){
-        return $this->belongsTo(Konversi::class);
+    // Relasi to Sampah Plastik, penjadwalan has sampah_plastik_id
+    public function sampahPlastik(){
+        return $this->belongsTo(sampahPlastik::class);
     }
 
     // Relasi to Mesin, penjadwalan has mesin_id

@@ -111,6 +111,14 @@
             @include('component.pemilahan-data')
         @endif
 
+    @elseif(Route::is('pengiriman.*'))
+        @if(Route::is('pengiriman.edit'))
+            @include('component.pengiriman-edit')
+        @else
+            @include('component.pengiriman-create')
+            @include('component.pengiriman-data')
+        @endif
+
     @elseif(Route::is('report'))
         @include('component.laporan')
     @endif
