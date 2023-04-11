@@ -70,9 +70,8 @@ class SampahCacahController extends Controller
      */
     public function edit(SampahCacah $sampahCacah)
     {
-        $stockNew = Penjadwalan::where('status','finished')->sum('last_stock');
         $stock = SampahCacah::sum('stock');
-        $stockAvailable = ($stockNew - $stock) * 1000;
+        $stockAvailable = $stock * 1000;
         return view('page', compact('sampahCacah', 'stockAvailable'));
     }
 

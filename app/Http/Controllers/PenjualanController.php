@@ -39,7 +39,8 @@ class PenjualanController extends Controller
             $total = 0;
             $supplierName = null;
             $supplierId = null;
-            return view('page',compact('now','supplier','sampah','data','invoice','id_penjualan','total','supplierId','supplierName'));
+            $isInv = 0;
+            return view('page',compact('now','supplier','sampah','data','invoice','id_penjualan','total','supplierId','supplierName','isInv'));
         } else {
             $data = TransaksiPenjualan::join('sampah_cacahs','transaksi_penjualans.sampah_cacah_id','=','sampah_cacahs.id')
             ->join('penjualans','transaksi_penjualans.penjualan_id','=','penjualans.id')
@@ -57,7 +58,8 @@ class PenjualanController extends Controller
 
             $id_penjualan = Penjualan::where('invoice',$invoice)->sum('id');
             $total = Penjualan::where('invoice',$invoice)->sum('total');
-            return view('page',compact('now','supplier','sampah','data','invoice','id_penjualan','total','supplierId','supplierName'));
+            $isInv = Penjualan::where('invoice',$invoice)->count();
+            return view('page',compact('now','supplier','sampah','data','invoice','id_penjualan','total','supplierId','supplierName','isInv'));
         }
     }
 

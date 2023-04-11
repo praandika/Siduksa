@@ -40,7 +40,14 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">Sampah Cacah</label>
+                        <label for="example-text-input" class="form-control-label">Sampah Cacah <span id="stockAvailable"></span> </label>
+                        <input type="hidden" name="sampah_id" id="sampah_id">
+                        <input class="form-control" id="sampah_name" type="text" name="sampah_name" placeholder="Pilih Sampah Cacah" data-bs-toggle="modal" data-bs-target="#sampahData" readonly required>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Jumlah Dikirim</label>
                         <input type="hidden" name="sampah_id" id="sampah_id">
                         <input class="form-control" id="sampah_name" type="text" name="sampah_name" placeholder="Pilih Sampah Cacah" data-bs-toggle="modal" data-bs-target="#sampahData" readonly required>
                     </div>
@@ -95,6 +102,8 @@
                             <tr 
                             data-id="{{ $o->id }}"
                             data-name="{{ $o->name }}"
+                            data-stock="{{ $o->stock * 1000 }}"
+                            data-stockDisplay="Stok Tersedia {{ number_format($o->stock * 1000, 0, ',', '.') }}"
                             class="pilihSampah">
                                 <td>
                                     <span class="text-xs font-weight-bold">{{ $no++ }}</span>
@@ -245,6 +254,8 @@
     $(document).on('click', '.pilihSampah', function (e) {
         $('#sampah_id').val($(this).attr('data-id'));
         $('#sampah_name').val($(this).attr('data-name'));
+        $('#stockAvailable').text($(this).attr('data-stockDisplay'));
+        $('#stockInput').text($(this).attr('data-stock'));
         $('#sampahData').modal('hide');
     });
 

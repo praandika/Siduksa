@@ -38,7 +38,7 @@
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Pengepul</label>
                         <input type="hidden" value="{{ $pengepulId }}" name="pengepul_id" id="pengepul_id">
-                        <input class="form-control" type="text" name="pengepul_name" value="{{ $pengepulName }}" id="pengepul_name" placeholder="Pilih pengepul" data-bs-toggle="modal" data-bs-target="#pengepulData" required>
+                        <input class="form-control" type="text" name="pengepul_name" value="{{ $pengepulName }}" id="pengepul_name" placeholder="Pilih pengepul" @if($isInv == 0) data-bs-toggle="modal" data-bs-target="#pengepulData" @else readonly @endif required>
                     </div>
                 </div>
                 <div class="col-md-6">

@@ -31,7 +31,7 @@ class PembelianController extends Controller
         $now = Carbon::now('GMT+8')->format('Y-m-d');
         $pengepul = Pengepul::orderBy('name','asc')->get();
         $sampah = SampahPlastik::orderBy('name','asc')->get();
-
+        
         if ($invoice == null) {
             $random = Carbon::now('GMT+8')->format('YmdHis');
             $count = Pembelian::count();
@@ -41,7 +41,8 @@ class PembelianController extends Controller
             $total = 0;
             $pengepulName = null;
             $pengepulId = null;
-            return view('page',compact('now','pengepul','sampah','data','invoice','id_pembelian','total','pengepulId','pengepulName'));
+            $isInv = 0;
+            return view('page',compact('now','pengepul','sampah','data','invoice','id_pembelian','total','pengepulId','pengepulName','isInv'));
         } else {
             $data = TransaksiPembelian::join('sampah_plastiks','transaksi_pembelians.sampah_plastik_id','=','sampah_plastiks.id')
             ->join('pembelians','transaksi_pembelians.pembelian_id','=','pembelians.id')
@@ -59,7 +60,8 @@ class PembelianController extends Controller
 
             $id_pembelian = Pembelian::where('invoice',$invoice)->sum('id');
             $total = Pembelian::where('invoice',$invoice)->sum('total');
-            return view('page',compact('now','pengepul','sampah','data','invoice','id_pembelian','total','pengepulId','pengepulName'));
+            $isInv = Pembelian::where('invoice',$invoice)->count();
+            return view('page',compact('now','pengepul','sampah','data','invoice','id_pembelian','total','pengepulId','pengepulName','isInv'));
         }
     }
 
@@ -102,14 +104,22 @@ class PembelianController extends Controller
 
         // Cek if Sampah Campuran
         if ($request->cek == "Campuran") {
-            $pemilahan = new Pemilahan;
-            $pemilahan->invoice = $request->invoice;
-            $pemilahan->sampah_plastik_id = $request->sampah_id;
-            $pemilahan->total_weight = $request->qty;
-            $pemilahan->satuan = $satuan;
-            $pemilahan->harga = $harga;
-            $pemilahan->status = 'unsorted';
-            $pemilahan->save();
+            if ($request->berat == "gram" && $request->hargag == 0) {
+                alert()->error('Harga Gram belum diatur!');
+                return redirect()->back()->withInput();
+            } elseif($request->berat == "kg" && $request->hargakg == 0) {
+                alert()->error('Harga Kilogram belum diatur!');
+                return redirect()->back()->withInput();
+            } else {
+                $pemilahan = new Pemilahan;
+                $pemilahan->invoice = $request->invoice;
+                $pemilahan->sampah_plastik_id = $request->sampah_id;
+                $pemilahan->total_weight = $request->qty;
+                $pemilahan->satuan = $satuan;
+                $pemilahan->harga = $harga;
+                $pemilahan->status = 'unsorted';
+                $pemilahan->save();
+            }
         }
 
         // Cek If Invoice already store
