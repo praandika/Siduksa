@@ -48,7 +48,6 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Jumlah Dikirim</label>
-                        <input type="hidden" name="sampah_id" id="sampah_id">
                         <input class="form-control" id="sampah_name" type="text" name="sampah_name" placeholder="Pilih Sampah Cacah" data-bs-toggle="modal" data-bs-target="#sampahData" readonly required>
                     </div>
                 </div>
