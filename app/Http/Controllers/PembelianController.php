@@ -104,22 +104,24 @@ class PembelianController extends Controller
 
         // Cek if Sampah Campuran
         if ($request->cek == "Campuran") {
-            if ($request->berat == "gram" && $request->hargag == 0) {
-                alert()->error('Harga Gram belum diatur!');
-                return redirect()->back()->withInput();
-            } elseif($request->berat == "kg" && $request->hargakg == 0) {
-                alert()->error('Harga Kilogram belum diatur!');
-                return redirect()->back()->withInput();
-            } else {
-                $pemilahan = new Pemilahan;
-                $pemilahan->invoice = $request->invoice;
-                $pemilahan->sampah_plastik_id = $request->sampah_id;
-                $pemilahan->total_weight = $request->qty;
-                $pemilahan->satuan = $satuan;
-                $pemilahan->harga = $harga;
-                $pemilahan->status = 'unsorted';
-                $pemilahan->save();
-            }
+            // if ($request->berat == "gram" && $request->hargag == 0) {
+            //     alert()->error('Harga Gram belum diatur!');
+            //     return redirect()->back()->withInput();
+            // } elseif($request->berat == "kg" && $request->hargakg == 0) {
+            //     alert()->error('Harga Kilogram belum diatur!');
+            //     return redirect()->back()->withInput();
+            // } else {
+                
+            // }
+
+            $pemilahan = new Pemilahan;
+            $pemilahan->invoice = $request->invoice;
+            $pemilahan->sampah_plastik_id = $request->sampah_id;
+            $pemilahan->total_weight = $request->qty;
+            $pemilahan->satuan = $satuan;
+            $pemilahan->harga = $harga;
+            $pemilahan->status = 'unsorted';
+            $pemilahan->save();
         }
 
         // Cek If Invoice already store

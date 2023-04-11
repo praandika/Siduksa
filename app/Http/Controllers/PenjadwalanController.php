@@ -48,29 +48,35 @@ class PenjadwalanController extends Controller
      */
     public function store(Request $request)
     {
-        $now = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
-        $data = new Penjadwalan;
-        $data->mesin_id = $request->mesin_id;
-        $data->sampah_plastik_id = $request->sampah_id;
-        $data->first_stock = $request->first_stock / 1000;
-        $data->last_stock = 0;
-        $data->date_stock_in = $now;
-        $data->penjadwalan_date = $now;
-        $data->status = 'on progress';
-        $data->save();
+        $cek = $request->stock - $request->first_stock;
+        if ($cek < 0) {
+            alert()->error('Perhatian','Stok kurang!');
+            return redirect()->back()->with('display', true);
+        } else {
+            $now = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+            $data = new Penjadwalan;
+            $data->mesin_id = $request->mesin_id;
+            $data->sampah_plastik_id = $request->sampah_id;
+            $data->first_stock = $request->first_stock / 1000;
+            $data->last_stock = 0;
+            $data->date_stock_in = $now;
+            $data->penjadwalan_date = $now;
+            $data->status = 'on progress';
+            $data->save();
 
-        $mesin = Mesin::find($request->mesin_id);
-        $mesin->status = 'online';
-        $mesin->update();
+            $mesin = Mesin::find($request->mesin_id);
+            $mesin->status = 'online';
+            $mesin->update();
 
-        // Update Stock
-        $stok = ($request->stock - $request->first_stock) / 1000;
-        $updateStock = SampahPlastik::find($request->sampah_id);
-        $updateStock->stock = $stok;
-        $updateStock->update();
+            // Update Stock
+            $stok = ($request->stock - $request->first_stock) / 1000;
+            $updateStock = SampahPlastik::find($request->sampah_id);
+            $updateStock->stock = $stok;
+            $updateStock->update();
 
-        toast('Data penjadwalan berhasil disimpan','success');
-        return redirect()->route('penjadwalan.index')->with('display', true);
+            toast('Data penjadwalan berhasil disimpan','success');
+            return redirect()->route('penjadwalan.index')->with('display', true);
+        }
     }
 
     /**
