@@ -100,7 +100,7 @@ class PenjualanController extends Controller
             $harga = $request->qty * $request->hargakg;
         }
 
-        if ($request->qty > $request->stock) {
+        if ($stok < 0) {
             alert()->error('Oops...','Quantity melebihi stok!');
             return redirect()->back();
         } else {
