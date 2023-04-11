@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->date('production_date');
             $table->unsignedInteger('mesin_id');
-            $table->unsignedInteger('sampah_cacah_id');
+            $table->unsignedInteger('transaksi_penjualan_id');
             $table->date('date');
             $table->string('status');
             $table->timestamps();

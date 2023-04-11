@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('qty');
             $table->string('satuan');
             $table->integer('harga');
+            $table->string('status');
             $table->timestamps();
         });
     }

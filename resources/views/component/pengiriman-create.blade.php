@@ -40,17 +40,18 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">Sampah Cacah <span id="stockAvailable"></span> </label>
-                        <input type="hidden" name="sampah_id" id="sampah_id">
+                        <label for="example-text-input" class="form-control-label">Sampah Cacah</label>
                         <input class="form-control" id="sampah_name" type="text" name="sampah_name" placeholder="Pilih Sampah Cacah" data-bs-toggle="modal" data-bs-target="#sampahData" readonly required>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">Jumlah Dikirim</label>
-                        <input class="form-control" id="sampah_name" type="text" name="sampah_name" placeholder="Pilih Sampah Cacah" data-bs-toggle="modal" data-bs-target="#sampahData" readonly required>
+                        <label for="example-text-input" class="form-control-label">Jumlah Dikirim (Gram)</label>
+                        <input class="form-control" id="qtykirim" type="text" name="qtykirim" placeholder="Total Berat (Gram)" required>
                     </div>
                 </div>
+
+                <input type="hidden" name="id_transaksi" id="id_transaksi">
             </div>
 
             <button type="submit" class="btn bg-gradient-primary"><i class="fa fa-check"></i>&nbsp;&nbsp;Simpan</button>
@@ -77,10 +78,6 @@
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (kg)
-                                </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (gram)
                                 </th>
                             </tr>
                         </thead>
@@ -88,10 +85,6 @@
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (kg)
-                                </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga (gram)
                                 </th>
                             </tr>
                         </tfoot>
@@ -101,8 +94,7 @@
                             <tr 
                             data-id="{{ $o->id }}"
                             data-name="{{ $o->name }}"
-                            data-stock="{{ $o->stock * 1000 }}"
-                            data-stockDisplay="Stok Tersedia {{ number_format($o->stock * 1000, 0, ',', '.') }}"
+                            data-qty="{{ $o->qty * 1000 }}"
                             class="pilihSampah">
                                 <td>
                                     <span class="text-xs font-weight-bold">{{ $no++ }}</span>
@@ -115,45 +107,14 @@
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm">{{ $o->name }}</h6>
-                                            <p class="text-xs text-secondary mb-0">{{ number_format($o->stock * 1000, 0, ',', '.') }} Gram</p>
+                                            <p class="text-xs text-secondary mb-0">{{ number_format($o->qty * 1000, 0, ',', '.') }} Gram</p>
                                         </div>
                                     </div>
-                                </td>
-                                <td>
-                                    <p class="text-xs font-weight-bold mb-0">{{ $o->type }}</p>
-                                    @if ($o->type == 'PETE')
-                                    <p class="text-xs text-secondary mb-0">Polyethylene Terephthalate</p>
-                                    @elseif ($o->type == 'HDPE')
-                                    <p class="text-xs text-secondary mb-0">High Density Polyethylene</p>
-                                    @elseif ($o->type == 'PVC')
-                                    <p class="text-xs text-secondary mb-0">Polyvinyl Chloride</p>
-                                    @elseif ($o->type == 'LDPE')
-                                    <p class="text-xs text-secondary mb-0">Low Density Polyethylene</p>
-                                    @elseif ($o->type == 'PP')
-                                    <p class="text-xs text-secondary mb-0">Polypropylene</p>
-                                    @elseif ($o->type == 'PS')
-                                    <p class="text-xs text-secondary mb-0">Polystyrene</p>
-                                    @elseif ($o->type == 'Campuran')
-                                    <p class="text-xs text-secondary mb-0">Campuran</p>
-                                    @else
-                                    <p class="text-xs text-secondary mb-0">Other</p>
-                                    @endif
-                                </td>
-                                <td>
-                                    <span
-                                        class="text-xs font-weight-bold">{{ number_format($o->price_kg, 0, ',', '.')}}</span>
-                                </td>
-                                <td>
-                                    <span
-                                        class="text-xs font-weight-bold">{{ number_format($o->price_gram, 0, ',', '.')}}</span>
                                 </td>
                             </tr>
                             @empty
                             <tr>
                                 <td>#</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
                                 <td></td>
                             </tr>
                             @endforelse
@@ -251,10 +212,9 @@
     });
 
     $(document).on('click', '.pilihSampah', function (e) {
-        $('#sampah_id').val($(this).attr('data-id'));
+        $('#id_transaksi').val($(this).attr('data-id'));
         $('#sampah_name').val($(this).attr('data-name'));
-        $('#stockAvailable').text($(this).attr('data-stockDisplay'));
-        $('#stockInput').text($(this).attr('data-stock'));
+        $('#qtykirim').val($(this).attr('data-qty'));
         $('#sampahData').modal('hide');
     });
 

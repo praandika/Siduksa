@@ -57,7 +57,7 @@
                                     <span class="text-xs font-weight-bold">Rp {{ number_format($o->total, 0, ',', '.') }}</span>
                                 </td>
                                 <td class="align-middle">
-                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Print">
+                                    <a href="{{ route('print.invoice',['param' => 'penjualan','invoice' => $o->invoice]) }}" data-toggle="tooltip" data-placement="top" title="Print" target="_blank">
                                         <i class="fas fa-print" style="color: DodgerBlue;"></i>
                                     </a>
                                 </td>

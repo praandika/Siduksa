@@ -55,8 +55,8 @@
                                                 alt="user1">
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{ $o->sampahCacah->name }}</h6>
-                                            <p class="text-xs text-secondary mb-0">{{ $o->stock }} kg</p>
+                                            <h6 class="mb-0 text-sm">{{ $o->transaksiPenjualan->sampahCacah->name }}</h6>
+                                            <p class="text-xs text-secondary mb-0">{{ $o->transaksiPenjualan->qty }} kg</p>
                                         </div>
                                     </div>
                                 </td>

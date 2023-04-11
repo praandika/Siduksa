@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Mesin;
-use App\Models\SampahCacah;
+use App\Models\transaksiPenjualan;
 
 class Pengiriman extends Model
 {
@@ -24,7 +24,7 @@ class Pengiriman extends Model
     }
 
     // Relasi to Sampah Cacah, pengiriman has sampah_cacah_id
-    public function sampahCacah(){
-        return $this->belongsTo(SampahCacah::class);
+    public function transaksiPenjualan(){
+        return $this->belongsTo(transaksiPenjualan::class);
     }
 }

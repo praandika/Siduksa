@@ -115,6 +115,7 @@ class PenjualanController extends Controller
                 $data->qty = $request->qty;
                 $data->satuan = $satuan;
                 $data->harga = $harga;
+                $data->status = 'preparing';
                 $data->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
                 $data->save();
 
@@ -150,6 +151,7 @@ class PenjualanController extends Controller
                 $data->qty = $request->qty;
                 $data->satuan = $satuan;
                 $data->harga = $harga;
+                $data->status = 'preparing';
                 $data->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
                 $data->save();
 
