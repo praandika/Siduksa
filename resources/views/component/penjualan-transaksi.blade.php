@@ -37,8 +37,8 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Supplier</label>
-                        <input type="hidden" value="{{ $supplierId }}" name="supplier_id" id="supplier_id">
-                        <input class="form-control" type="text" name="supplier_name" value="{{ $supplierName }}" id="supplier_name" placeholder="Pilih supplier" @if($isInv == 0) data-bs-toggle="modal" data-bs-target="#supplierData" @endif readonly required>
+                        <input type="hidden" value="{{ $supplierId }}" name="supplier_id" id="supplier_id" required>
+                        <input class="form-control" type="text" name="supplier_name" value="{{ $supplierName }}" id="supplier_name" placeholder="Pilih supplier" @if($isInv == 0) data-bs-toggle="modal" data-bs-target="#supplierData" @else readonly @endif required>
                     </div>
                 </div>
                 <div class="col-md-6">

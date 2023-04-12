@@ -37,14 +37,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Pengepul</label>
-                        <input type="hidden" value="{{ $pengepulId }}" name="pengepul_id" id="pengepul_id">
-                        <input class="form-control" type="text" name="pengepul_name" value="{{ $pengepulName }}" id="pengepul_name" placeholder="Pilih pengepul" @if($isInv == 0) data-bs-toggle="modal" data-bs-target="#pengepulData" @endif readonly required>
+                        <input type="hidden" value="{{ $pengepulId }}" name="pengepul_id" id="pengepul_id" required>
+                        <input class="form-control" type="text" name="pengepul_name" value="{{ $pengepulName }}" id="pengepul_name" placeholder="Pilih pengepul" @if($isInv == 0) data-bs-toggle="modal" data-bs-target="#pengepulData" @else readonly @endif required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Sampah Plastik</label>
-                        <input type="hidden" name="sampah_id" id="sampah_id">
+                        <input type="hidden" name="sampah_id" id="sampah_id" required>
                         <input class="form-control" id="sampah_name" type="text" name="sampah_name" placeholder="Pilih sampah" data-bs-toggle="modal" data-bs-target="#sampahData" readonly required>
                     </div>
                 </div>
