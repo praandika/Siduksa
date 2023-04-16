@@ -94,7 +94,7 @@
                             <tr 
                             data-id="{{ $o->id }}"
                             data-name="{{ $o->name }}"
-                            data-qty="{{ $o->qty * 1000 }}"
+                            data-qty="{{ $o->satuan == 'Gram' ? $o->qty : $o->qty * 1000 }}"
                             class="pilihSampah">
                                 <td>
                                     <span class="text-xs font-weight-bold">{{ $no++ }}</span>
@@ -107,7 +107,7 @@
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm">{{ $o->name }}</h6>
-                                            <p class="text-xs text-secondary mb-0">{{ number_format($o->qty * 1000, 0, ',', '.') }} Gram</p>
+                                            <p class="text-xs text-secondary mb-0">{{ number_format($o->satuan == 'Gram' ? $o->qty : $o->qty * 1000, 0, ',', '.') }} Gram</p>
                                         </div>
                                     </div>
                                 </td>

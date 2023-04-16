@@ -21,7 +21,7 @@ class PengirimanController extends Controller
         $sampah = TransaksiPenjualan::join('sampah_cacahs','transaksi_penjualans.sampah_cacah_id','sampah_cacahs.id')
         ->where('status','preparing')
         ->orderBy('id','asc')
-        ->select('sampah_cacahs.name','transaksi_penjualans.qty','transaksi_penjualans.id','sampah_cacahs.id as sampah_id')
+        ->select('sampah_cacahs.name','transaksi_penjualans.qty','transaksi_penjualans.id','sampah_cacahs.id as sampah_id','transaksi_penjualans.satuan')
         ->get();
         $mesin = Mesin::all();
         $now = Carbon::now('GMT+8')->format('Y-m-d');
