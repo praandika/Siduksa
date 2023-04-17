@@ -86,7 +86,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Total (Rp)</label>
-                        <input class="form-control" type="number" value="{{ number_format($total, 0, ',', '.') }}" style="background-color: #f0ebb4; font-size: 50px; font-weight: bold;" id="total">
+                        <input class="form-control" type="text" value="{{ number_format($total, 0, ',', '.') }}" style="background-color: #f0ebb4; font-size: 50px; font-weight: bold;" id="total">
                         <input type="hidden" name="total" id="angkaTotal" value="{{ $total }}">
                     </div>
                 </div>
@@ -451,5 +451,11 @@
         document.getElementById("total").value = jumlah;
         console.log(qty, jumlah);
     }
+</script>
+
+<script>
+    document.getElementById("total").addEventListener("keypress", function(event){
+        event.preventDefault()
+    });
 </script>
 @endpush
