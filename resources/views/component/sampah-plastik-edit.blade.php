@@ -35,6 +35,7 @@
                             <option value="LDPE">LDPE (Low Density Polyethylene)</option>
                             <option value="PP">PP (Polypropylene)</option>
                             <option value="PS">PS (Polystyrene)</option>
+                            <option value="Campuran">Campuran</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
