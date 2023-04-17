@@ -115,7 +115,6 @@ class PenjualanController extends Controller
                 $data->qty = $request->qty;
                 $data->satuan = $satuan;
                 $data->harga = $harga;
-                $data->status = 'preparing';
                 $data->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
                 $data->save();
 
@@ -139,7 +138,7 @@ class PenjualanController extends Controller
                 $penjualan->invoice = $request->invoice;
                 $penjualan->date = $request->date;
                 $penjualan->total = $harga;
-                $penjualan->status = 'unprint';
+                $penjualan->status = 'preparing';
                 $penjualan->save();
 
                 $id_penjualan = Penjualan::where('invoice',$request->invoice)->sum('id');
@@ -151,7 +150,6 @@ class PenjualanController extends Controller
                 $data->qty = $request->qty;
                 $data->satuan = $satuan;
                 $data->harga = $harga;
-                $data->status = 'preparing';
                 $data->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
                 $data->save();
 

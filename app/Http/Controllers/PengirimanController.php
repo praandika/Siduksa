@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengiriman;
 use App\Http\Controllers\Controller;
 use App\Models\Mesin;
+use App\Models\Penjualan;
 use App\Models\TransaksiPenjualan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -18,10 +19,11 @@ class PengirimanController extends Controller
      */
     public function index()
     {
-        $sampah = TransaksiPenjualan::join('sampah_cacahs','transaksi_penjualans.sampah_cacah_id','sampah_cacahs.id')
-        ->where('status','preparing')
-        ->orderBy('id','asc')
-        ->select('sampah_cacahs.name','transaksi_penjualans.qty','transaksi_penjualans.id','sampah_cacahs.id as sampah_id','transaksi_penjualans.satuan')
+        $sampah = TransaksiPenjualan::join('penjualans','transaksi_penjualans.penjualan_id','penjualans.id')
+        ->where('penjualans.status','preparing')
+        ->orderBy('penjualans.id','asc')
+        ->selectRaw('penjualans.invoice, SUM(IF(transaksi_penjualans.satuan = "Kg", ROUND(transaksi_penjualans.qty*1000, 0), ROUND(transaksi_penjualans.qty, 0))) as qty')
+        ->groupBy('penjualans.invoice')
         ->get();
         $mesin = Mesin::all();
         $now = Carbon::now('GMT+8')->format('Y-m-d');
@@ -51,14 +53,15 @@ class PengirimanController extends Controller
         $data = new Pengiriman;
         $data->production_date = $request->production_date;
         $data->mesin_id = $request->mesin_id;
-        $data->transaksi_penjualan_id = $request->id_transaksi;
+        $data->invoice = $request->invoice;
+        $data->total = $request->qtykirim;
         $data->date = $request->date;
         $data->status = 'shipping';
         $data->save();
 
-        $data = TransaksiPenjualan::find($request->id_transaksi);
-        $data->status = 'shipping';
-        $data->update();
+        $penjualan = Penjualan::where('invoice',$request->invoice)->first();
+        $penjualan->status = 'shipping';
+        $penjualan->update();
         toast('Data pengiriman berhasil disimpan','success');
         return redirect()->route('pengiriman.index')->with('display',true);
     }

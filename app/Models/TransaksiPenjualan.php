@@ -24,8 +24,8 @@ class TransaksiPenjualan extends Model
         return $this->belongsTo(SampahCacah::class);
     }
 
-    // Relasi to Pengiriman
-    public function pengiriman(){
-        return $this->hasMany(Pengiriman::class);
-    }
+    // // Relasi to Pengiriman
+    // public function pengiriman(){
+    //     return $this->hasMany(Pengiriman::class);
+    // }
 }

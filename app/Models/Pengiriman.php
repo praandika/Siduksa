@@ -23,8 +23,8 @@ class Pengiriman extends Model
         return $this->belongsTo(Mesin::class);
     }
 
-    // Relasi to Sampah Cacah, pengiriman has sampah_cacah_id
-    public function transaksiPenjualan(){
-        return $this->belongsTo(transaksiPenjualan::class);
-    }
+    // // Relasi to Sampah Cacah, pengiriman has sampah_cacah_id
+    // public function transaksiPenjualan(){
+    //     return $this->belongsTo(transaksiPenjualan::class);
+    // }
 }

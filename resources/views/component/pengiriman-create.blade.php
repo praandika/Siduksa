@@ -47,11 +47,11 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Jumlah Dikirim (Gram)</label>
-                        <input class="form-control" id="qtykirim" type="text" name="qtykirim" placeholder="Total Berat (Gram)" required>
+                        <input class="form-control" id="qtykirim" type="text" name="qtykirim" placeholder="Total Berat (Gram)" readonly required>
                     </div>
                 </div>
 
-                <input type="hidden" name="id_transaksi" id="id_transaksi">
+                <input type="hidden" name="invoice" id="invoice">
             </div>
 
             <button type="submit" class="btn bg-gradient-primary"><i class="fa fa-check"></i>&nbsp;&nbsp;Simpan</button>
@@ -77,14 +77,14 @@
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Invoice</th>
                                 </th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Invoice</th>
                                 </th>
                             </tr>
                         </tfoot>
@@ -92,9 +92,9 @@
                             @php($no = 1)
                             @forelse($sampah as $o)
                             <tr 
-                            data-id="{{ $o->id }}"
-                            data-name="{{ $o->name }}"
-                            data-qty="{{ $o->satuan == 'Gram' ? $o->qty : $o->qty * 1000 }}"
+                            data-id="{{ $o->invoice }}"
+                            data-name="{{ $o->invoice }}"
+                            data-qty="{{ $o->qty }}"
                             class="pilihSampah">
                                 <td>
                                     <span class="text-xs font-weight-bold">{{ $no++ }}</span>
@@ -106,8 +106,8 @@
                                                 class="avatar avatar-sm me-3" alt="user1">
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{ $o->name }}</h6>
-                                            <p class="text-xs text-secondary mb-0">{{ number_format($o->satuan == 'Gram' ? $o->qty : $o->qty * 1000, 0, ',', '.') }} Gram</p>
+                                            <h6 class="mb-0 text-sm">{{ $o->invoice }}</h6>
+                                            <p class="text-xs text-secondary mb-0">{{ number_format($o->qty, 0, ',', '.') }} Gram</p>
                                         </div>
                                     </div>
                                 </td>
@@ -212,7 +212,7 @@
     });
 
     $(document).on('click', '.pilihSampah', function (e) {
-        $('#id_transaksi').val($(this).attr('data-id'));
+        $('#invoice').val($(this).attr('data-id'));
         $('#sampah_name').val($(this).attr('data-name'));
         $('#qtykirim').val($(this).attr('data-qty'));
         $('#sampahData').modal('hide');

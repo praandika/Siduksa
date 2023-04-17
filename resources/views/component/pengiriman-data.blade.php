@@ -18,7 +18,7 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Pengiriman</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Produksi</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sampah Cacah</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Invoice</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mesin</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                 <th class="text-secondary opacity-7"></th>
@@ -29,7 +29,7 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Pengiriman</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Produksi</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sampah Cacah</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Invoice</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mesin</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                 <th class="text-secondary opacity-7"></th>
@@ -55,8 +55,8 @@
                                                 alt="user1">
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{ $o->transaksiPenjualan->sampahCacah->name }}</h6>
-                                            <p class="text-xs text-secondary mb-0">{{ $o->transaksiPenjualan->qty }} kg</p>
+                                            <h6 class="mb-0 text-sm">{{ $o->invoice }}</h6>
+                                            <p class="text-xs text-secondary mb-0">{{ $o->total }} kg</p>
                                         </div>
                                     </div>
                                 </td>
