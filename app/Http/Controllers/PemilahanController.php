@@ -75,17 +75,17 @@ class PemilahanController extends Controller
     {
         if ($request->satuan == 'Kg') {
             $totalWeight = $request->totalWeight * 1000;
-            $countWeight = $totalWeight - $request->qty; //Gram
+            $countWeight = $totalWeight - ($request->qty + $request->waste); //Gram
             $remainingWeight = $countWeight / 1000;
         } else {
             $totalWeight = $request->totalWeight;
-            $countWeight = $totalWeight - $request->qty;
+            $countWeight = $totalWeight - ($request->qty + $request->waste);
             $remainingWeight = $countWeight;
         }
         
         // dd($countWeight);
 
-        if ($countWeight < 0) {
+        if ($countWeight < 0 || $request->waste < 0) {
             alert()->error('Oops...','Quantity melebihi total berat!');
             return redirect()->back();
         } else {
@@ -98,6 +98,7 @@ class PemilahanController extends Controller
             $pemilahan = Pemilahan::find($pemilahan->id);
             $pemilahan->total_weight = $remainingWeight;
             $pemilahan->status = $status;
+            $pemilahan->waste_trash = $request->waste;
             $pemilahan->update();
     
             // Update Stock

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('sampah_plastik_id');
             $table->float('total_weight');
             $table->string('satuan');
+            $table->float('waste_trash')->nullable();
             $table->integer('harga');
             $table->string('status');
             $table->timestamps();

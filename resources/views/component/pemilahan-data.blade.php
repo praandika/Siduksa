@@ -51,7 +51,7 @@
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm">{{ $o->sampahPlastik->name }}</h6>
-                                            <p class="text-xs text-secondary mb-0">{{ $o->total_weight }} {{ $o->satuan }}</p>
+                                            <p class="text-xs text-secondary mb-0">{{ $o->total_weight }} {{ $o->satuan }} {{ $o->waste_trash > 0 ? ' | Terbuang: '.$o->waste_trash.' Gram' : ''}}</p>
                                         </div>
                                     </div>
                                 </td>
