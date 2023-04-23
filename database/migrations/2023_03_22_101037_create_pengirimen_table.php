@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('pengirimen', function (Blueprint $table) {
             $table->id();
             $table->date('production_date');
-            $table->unsignedInteger('mesin_id');
             $table->string('invoice');
             $table->integer('total');
             $table->date('date');

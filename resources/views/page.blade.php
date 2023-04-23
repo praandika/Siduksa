@@ -121,5 +121,8 @@
 
     @elseif(Route::is('report'))
         @include('component.laporan')
+
+    @elseif(Route::is('labarugi'))
+        @include('component.laporan')
     @endif
 @endsection

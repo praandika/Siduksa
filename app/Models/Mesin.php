@@ -18,8 +18,8 @@ class Mesin extends Model
         return $this->hasMany(Penjadwalan::class);
     }
 
-    // Relasi to Pengiriman
-    public function pengiriman(){
-        return $this->hasMany(Pengiriman::class);
-    }
+    // // Relasi to Pengiriman
+    // public function pengiriman(){
+    //     return $this->hasMany(Pengiriman::class);
+    // }
 }
