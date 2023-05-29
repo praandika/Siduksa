@@ -165,7 +165,8 @@ class PenjualanController extends Controller
                         $updateStock = SampahCacah::find($request->sampah_id);
                         $updateStock->stock = $stok;
                         $updateStock->update();
-
+                        
+                        toast('Penjualan berhasil ditambah!','success');
                         return redirect('penjualan-transaction/'.$request->invoice)->withInput();
                     }
                 }

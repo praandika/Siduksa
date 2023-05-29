@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="card-body">
-        <form action="{{ $title == 'Laba Rugi' ? route('labarugi') : route('export',$param) }}">  
+        <form action="{{ $title == 'Laba Rugi' ? route('labarugi') : route('report',$param) }}">  
             @csrf()
             <div class="row">
                 <div class="col-md-6">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <button type="submit" class="btn bg-gradient-secondary"><i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;{{ $title == 'Laba Rugi' ? 'Proses' : 'Export' }}</button>
+                    <button type="submit" class="btn bg-gradient-secondary"><i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;{{ $title == 'Laba Rugi' ? 'Proses' : 'Proses' }}</button>
                 </div>
             </div>
             
@@ -47,6 +47,16 @@
                 <div class="table-responsive p-3">
                     <table class="table align-items-center mb-0" id="dataTable">
                         @if($title == 'Penjualan')
+                        <a 
+                            @if($start == '') 
+                                href="#" 
+                                class="btn bg-gradient-secondary" 
+                            @else 
+                                href="{{ url('export/penjualan',['start' => $start, 'end' => $end]) }}" 
+                                class="btn bg-gradient-success" 
+                                target="_blank" 
+                            @endif>Print
+                        </a>
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
@@ -109,6 +119,16 @@
                             @endforelse
                         </tbody>
                         @elseif($title == 'Pembelian')
+                        <a 
+                            @if($start == '') 
+                                href="#" 
+                                class="btn bg-gradient-secondary" 
+                            @else 
+                                href="{{ url('export/pembelian',['start' => $start, 'end' => $end]) }}" 
+                                class="btn bg-gradient-success" 
+                                target="_blank" 
+                            @endif>Print
+                        </a>
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
@@ -211,6 +231,16 @@
                             </tr>
                         </tbody>
                         @else
+                        <a 
+                            @if($start == '') 
+                                href="#" 
+                                class="btn bg-gradient-secondary" 
+                            @else 
+                                href="{{ url('export/produksi',['start' => $start, 'end' => $end]) }}" 
+                                class="btn bg-gradient-success" 
+                                target="_blank" 
+                            @endif>Print
+                        </a>
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>

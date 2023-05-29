@@ -190,7 +190,7 @@ class PembelianController extends Controller
                         $updateStock->update();
                     }
                 }
-
+                toast('Pembelian berhasil ditambah!','success');
                 return redirect('pembelian-transaction/'.$request->invoice)->withInput(); 
             }  
         }

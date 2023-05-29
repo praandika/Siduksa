@@ -10,13 +10,13 @@ use Illuminate\Http\Request;
 
 class ExportController extends Controller
 {
-    public function export(Request $request, $param){
+    public function export($param, $start, $end){
         if ($param == 'penjualan') {
-            return (new PenjualanExport)->start($request->start)->end($request->end)->download('Laporan_Penjualan_'.$request->start.'-'.$request->end.'.xlsx');
+            return (new PenjualanExport)->start($start)->end($end)->download('Laporan_Penjualan_'.$start.'-'.$end.'.xlsx');
         } elseif ($param == 'produksi') {
-            return (new ProduksiExport)->start($request->start)->end($request->end)->download('Laporan_Produksi_'.$request->start.'-'.$request->end.'.xlsx');
+            return (new ProduksiExport)->start($start)->end($end)->download('Laporan_Produksi_'.$start.'-'.$end.'.xlsx');
         } else {
-            return (new PembelianExport)->start($request->start)->end($request->end)->download('Laporan_Pembelian_'.$request->start.'-'.$request->end.'.xlsx');
+            return (new PembelianExport)->start($start)->end($end)->download('Laporan_Pembelian_'.$start.'-'.$end.'.xlsx');
         }
         
     }

@@ -110,4 +110,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/print-invoice/{param}/{in
 Route::middleware(['auth:sanctum', 'verified'])->get('/print-labarugi/{start}/{end}', [PrintController::class, 'labarugi'])->name('print.labarugi');
 
 // Export Excel
-Route::middleware(['auth:sanctum', 'verified'])->get('/export/{param}', [ExportController::class, 'export'])->name('export');
+Route::middleware(['auth:sanctum', 'verified'])->get('/export/{param}/{start}/{endi}', [ExportController::class, 'export'])->name('export');

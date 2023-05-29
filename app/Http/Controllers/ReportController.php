@@ -10,22 +10,28 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    public function report($param){
+    public function report(Request $request, $param){
+        $start = $request->start;
+        $end = $request->end;
         if ($param == 'penjualan') {
-            $data = Penjualan::orderBy('date','desc')->limit(50)->get();
+            $data = Penjualan::whereBetween('date', [$request->start, $request->end])
+            ->orderBy('date','desc')->get();
             $title = 'Penjualan';
         } elseif($param == 'pembelian') {
-            $data = Pembelian::orderBy('date','desc')->limit(50)->get();
+            $data = Pembelian::whereBetween('date', [$request->start, $request->end])
+            ->orderBy('date','desc')->get();
             $title = 'Pembelian';
         } elseif($param == 'labarugi') {
-            $data = Pembelian::orderBy('date','desc')->limit(50)->get();
+            $data = Pembelian::whereBetween('date', [$request->start, $request->end])
+            ->orderBy('date','desc')->get();
             $title = 'Laba Rugi';
         } else {
-            $data = Penjadwalan::orderBy('date_stock_in','desc')->limit(50)->get();
+            $data = Penjadwalan::whereBetween('date_stock_in', [$request->start, $request->end])
+            ->orderBy('date_stock_in','desc')->get();
             $title = 'Produksi';
         }
         
-        return view('page', compact('data','title','param'));
+        return view('page', compact('data','title','param','start','end'));
     }
 
     public function labarugi(Request $request){
