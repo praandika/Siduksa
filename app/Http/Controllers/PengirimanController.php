@@ -49,7 +49,6 @@ class PengirimanController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
         if ($request->mesin_name == '' || $request->sampah_name == '' || $request->qtykirim == '') {
             alert()->warning('Warning','Masih ada kolom kosong!');
             return redirect()->back()->with('display',true);
@@ -62,15 +61,6 @@ class PengirimanController extends Controller
             $data->date = $request->date;
             $data->status = 'shipping';
             $data->save();
-=======
-        $data = new Pengiriman;
-        $data->production_date = $request->production_date;
-        $data->invoice = $request->invoice;
-        $data->total = $request->qtykirim;
-        $data->date = $request->date;
-        $data->status = 'shipping';
-        $data->save();
->>>>>>> 7af1d8aa67441d1f1eab6e3f8aaeaf06008d9bd0
 
             $penjualan = Penjualan::where('invoice',$request->invoice)->first();
             $penjualan->status = 'shipping';
