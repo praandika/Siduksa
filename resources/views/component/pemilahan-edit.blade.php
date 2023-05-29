@@ -34,8 +34,8 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Sampah Dipilah ke...</label>
-                        <input type="hidden" name="idSampah" id="idSampah">
-                        <input type="hidden" name="stock" id="stock">
+                        <input type="hidden" name="idSampah" id="idSampah" required>
+                        <input type="hidden" name="stock" id="stock" required>
                         <input class="form-control" type="text" name="namaSampah" id="namaSampah" placeholder="Pilih Sampah" data-bs-toggle="modal" data-bs-target="#sampahPlastikData" required>
                     </div>
                 </div>

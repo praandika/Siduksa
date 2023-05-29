@@ -31,14 +31,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Tanggal</label>
-                        <input class="form-control" type="text" name="date" value="{{ $now }}" placeholder="Masukkan tanggal..." required>
+                        <input class="form-control" type="text" name="date" value="{{ $now }}" placeholder="Masukkan tanggal..." @if($isInv > 0) readonly @endif required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Supplier</label>
                         <input type="hidden" value="{{ $supplierId }}" name="supplier_id" id="supplier_id" required>
-                        <input class="form-control" type="text" name="supplier_name" value="{{ $supplierName }}" id="supplier_name" placeholder="Pilih supplier" @if($isInv == 0) data-bs-toggle="modal" data-bs-target="#supplierData" @else readonly @endif required>
+                        <input class="form-control" type="text" name="supplier_name" value="{{ $supplierName }}" id="supplier_name" placeholder="Pilih supplier" data-bs-toggle="modal" data-bs-target="#supplierData" readonly required>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -93,7 +93,17 @@
             </div>
 
             <button type="submit" class="btn bg-gradient-primary"><i class="fa fa-check"></i>&nbsp;&nbsp;Sell</button>
-            <a href="{{ route('print.invoice',['param' => 'penjualan','invoice' => $invoice]) }}" type="button" class="btn bg-gradient-success" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp;Print Invoice</a>
+            <a type="button"
+                @if($isInv > 0)
+                    href="{{ route('print.invoice',['param' => 'penjualan','invoice' => $invoice]) }}" 
+                    class="btn bg-gradient-success"
+                    target="_blank"
+                @else 
+                    href="#" 
+                    class="btn bg-gradient-secondary"
+                @endif>
+                <i class="fas fa-print"></i>&nbsp;&nbsp;Print Invoice
+            </a>
         </form>
     </div>
 </div>

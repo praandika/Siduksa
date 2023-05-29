@@ -31,14 +31,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Tanggal</label>
-                        <input class="form-control" type="text" name="date" value="{{ $now }}" placeholder="Masukkan tanggal..." required>
+                        <input class="form-control" type="text" name="date" value="{{ $now }}" placeholder="Masukkan tanggal..." @if($isInv > 0) readonly @endif required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Pengepul</label>
                         <input type="hidden" value="{{ $pengepulId }}" name="pengepul_id" id="pengepul_id" required>
-                        <input class="form-control" type="text" name="pengepul_name" value="{{ $pengepulName }}" id="pengepul_name" placeholder="Pilih pengepul" @if($isInv == 0) data-bs-toggle="modal" data-bs-target="#pengepulData" @else readonly @endif required>
+                        <input class="form-control" type="text" name="pengepul_name" value="{{ $pengepulName }}" id="pengepul_name" placeholder="Pilih pengepul" data-bs-toggle="modal" data-bs-target="#pengepulData" readonly required>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -95,7 +95,17 @@
             <input type="hidden" id="cek" name="cek">
 
             <button type="submit" class="btn bg-gradient-primary"><i class="fa fa-check"></i>&nbsp;&nbsp;Buy</button>
-            <a href="{{ route('print.invoice',['param' => 'pembelian','invoice' => $invoice]) }}" type="button" class="btn bg-gradient-success" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp;Print Invoice</a>
+            <a type="button"
+                @if($isInv > 0)
+                    href="{{ route('print.invoice',['param' => 'pembelian','invoice' => $invoice]) }}" 
+                    class="btn bg-gradient-success"
+                    target="_blank"
+                @else 
+                    href="#" 
+                    class="btn bg-gradient-secondary"
+                @endif>
+                <i class="fas fa-print"></i>&nbsp;&nbsp;Print Invoice
+            </a>
         </form>
     </div>
 </div>
@@ -327,7 +337,9 @@
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm">{{ $o->name }}</h6>
+                                            @if($o->type != "Campuran")
                                             <p class="text-xs text-secondary mb-0">{{ number_format($o->stock * 1000, 0, ',', '.') }} Gram</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </td>

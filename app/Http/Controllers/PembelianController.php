@@ -83,108 +83,117 @@ class PembelianController extends Controller
      */
     public function store(Request $request)
     {
-        // Cek radio button
-        if ($request->berat == "gram") {
-            $stok = ($request->stock + $request->qty) / 1000;
-            $satuan = "Gram";
-            $harga = $request->qty * $request->hargag;
-        } elseif ($request->berat == "kg") {
-            $qtyGram = $request->qty * 1000;
-            $s = $request->stock + $qtyGram;
-            $stok = $s / 1000;
-            $satuan = "Kg";
-            $harga = $request->qty * $request->hargakg;
+        if ($request->sampah_name == '' || $request->pengepul_name == '') {
+            alert()->warning('Warning','Masih ada kolom kosong!');
+            return redirect()->back();
         } else {
-            $qtyGram = $request->qty * 1000;
-            $s = $request->stock + $qtyGram;
-            $stok = $s / 1000;
-            $satuan = "Kg";
-            $harga = $request->qty * $request->hargakg;
+            if ($request->qty < 0) {
+                alert()->warning('Warning','Quatity tidak boleh minus!');
+                return redirect()->back();
+            } else {
+                // Cek radio button
+                if ($request->berat == "gram") {
+                    $stok = ($request->stock + $request->qty) / 1000;
+                    $satuan = "Gram";
+                    $harga = $request->qty * $request->hargag;
+                } elseif ($request->berat == "kg") {
+                    $qtyGram = $request->qty * 1000;
+                    $s = $request->stock + $qtyGram;
+                    $stok = $s / 1000;
+                    $satuan = "Kg";
+                    $harga = $request->qty * $request->hargakg;
+                } else {
+                    $qtyGram = $request->qty * 1000;
+                    $s = $request->stock + $qtyGram;
+                    $stok = $s / 1000;
+                    $satuan = "Kg";
+                    $harga = $request->qty * $request->hargakg;
+                }
+
+                // Cek if Sampah Campuran
+                if ($request->cek == "Campuran") {
+                    // if ($request->berat == "gram" && $request->hargag == 0) {
+                    //     alert()->error('Harga Gram belum diatur!');
+                    //     return redirect()->back()->withInput();
+                    // } elseif($request->berat == "kg" && $request->hargakg == 0) {
+                    //     alert()->error('Harga Kilogram belum diatur!');
+                    //     return redirect()->back()->withInput();
+                    // } else {
+                        
+                    // }
+
+                    $pemilahan = new Pemilahan;
+                    $pemilahan->invoice = $request->invoice;
+                    $pemilahan->sampah_plastik_id = $request->sampah_id;
+                    $pemilahan->total_weight = $request->qty;
+                    $pemilahan->satuan = $satuan;
+                    $pemilahan->harga = $harga;
+                    $pemilahan->status = 'unsorted';
+                    $pemilahan->save();
+                }
+
+                // Cek If Invoice already store
+                $cekInvoice = Pembelian::where('invoice',$request->invoice)->count();
+
+                if ($cekInvoice > 0) {
+                    $data = new TransaksiPembelian;
+                    $data->pembelian_id = $request->id_pembelian;
+                    $data->sampah_plastik_id = $request->sampah_id;
+                    $data->date = $request->date;
+                    $data->qty = $request->qty;
+                    $data->satuan = $satuan;
+                    $data->harga = $harga;
+                    $data->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+                    $data->save();
+
+                    $total = Pembelian::where('id',$request->id_pembelian)->sum('total');
+                    $total += $harga;
+
+                    $pembelian = Pembelian::find($request->id_pembelian);
+                    $pembelian->total = $total;
+                    $pembelian->update();
+                    
+
+                    if ($request->cek != "Campuran") {
+                        // Update Stock
+                        $updateStock = SampahPlastik::find($request->sampah_id);
+                        $updateStock->stock = $stok;
+                        $updateStock->update();
+                    }
+
+                } else {
+                    $pembelian = new Pembelian;
+                    $pembelian->user_id = Auth::user()->id;
+                    $pembelian->pengepul_id = $request->pengepul_id;
+                    $pembelian->invoice = $request->invoice;
+                    $pembelian->date = $request->date;
+                    $pembelian->total = $harga;
+                    $pembelian->status = 'unprint';
+                    $pembelian->save();
+
+                    $id_pembelian = Pembelian::where('invoice',$request->invoice)->sum('id');
+
+                    $data = new TransaksiPembelian;
+                    $data->pembelian_id = $id_pembelian;
+                    $data->sampah_plastik_id = $request->sampah_id;
+                    $data->date = $request->date;
+                    $data->qty = $request->qty;
+                    $data->satuan = $satuan;
+                    $data->harga = $harga;
+                    $data->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+                    $data->save();
+
+                    if ($request->cek != "Campuran") {
+                        // Update Stock
+                        $updateStock = SampahPlastik::find($request->sampah_id);
+                        $updateStock->stock = $stok;
+                        $updateStock->update();
+                    }
+                }
+
+                return redirect('pembelian-transaction/'.$request->invoice)->withInput(); 
+            }  
         }
-
-        // Cek if Sampah Campuran
-        if ($request->cek == "Campuran") {
-            // if ($request->berat == "gram" && $request->hargag == 0) {
-            //     alert()->error('Harga Gram belum diatur!');
-            //     return redirect()->back()->withInput();
-            // } elseif($request->berat == "kg" && $request->hargakg == 0) {
-            //     alert()->error('Harga Kilogram belum diatur!');
-            //     return redirect()->back()->withInput();
-            // } else {
-                
-            // }
-
-            $pemilahan = new Pemilahan;
-            $pemilahan->invoice = $request->invoice;
-            $pemilahan->sampah_plastik_id = $request->sampah_id;
-            $pemilahan->total_weight = $request->qty;
-            $pemilahan->satuan = $satuan;
-            $pemilahan->harga = $harga;
-            $pemilahan->status = 'unsorted';
-            $pemilahan->save();
-        }
-
-        // Cek If Invoice already store
-        $cekInvoice = Pembelian::where('invoice',$request->invoice)->count();
-
-        if ($cekInvoice > 0) {
-            $data = new TransaksiPembelian;
-            $data->pembelian_id = $request->id_pembelian;
-            $data->sampah_plastik_id = $request->sampah_id;
-            $data->date = $request->date;
-            $data->qty = $request->qty;
-            $data->satuan = $satuan;
-            $data->harga = $harga;
-            $data->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
-            $data->save();
-
-            $total = Pembelian::where('id',$request->id_pembelian)->sum('total');
-            $total += $harga;
-
-            $pembelian = Pembelian::find($request->id_pembelian);
-            $pembelian->total = $total;
-            $pembelian->update();
-            
-
-            if ($request->cek != "Campuran") {
-                // Update Stock
-                $updateStock = SampahPlastik::find($request->sampah_id);
-                $updateStock->stock = $stok;
-                $updateStock->update();
-            }
-
-        } else {
-            $pembelian = new Pembelian;
-            $pembelian->user_id = Auth::user()->id;
-            $pembelian->pengepul_id = $request->pengepul_id;
-            $pembelian->invoice = $request->invoice;
-            $pembelian->date = $request->date;
-            $pembelian->total = $harga;
-            $pembelian->status = 'unprint';
-            $pembelian->save();
-
-            $id_pembelian = Pembelian::where('invoice',$request->invoice)->sum('id');
-
-            $data = new TransaksiPembelian;
-            $data->pembelian_id = $id_pembelian;
-            $data->sampah_plastik_id = $request->sampah_id;
-            $data->date = $request->date;
-            $data->qty = $request->qty;
-            $data->satuan = $satuan;
-            $data->harga = $harga;
-            $data->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
-            $data->save();
-
-            if ($request->cek != "Campuran") {
-                // Update Stock
-                $updateStock = SampahPlastik::find($request->sampah_id);
-                $updateStock->stock = $stok;
-                $updateStock->update();
-            }
-        }
-
-        return redirect('pembelian-transaction/'.$request->invoice)->withInput();
-        
     }
 
     /**

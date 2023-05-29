@@ -60,6 +60,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/mesin/delete/{id}', [Mesi
 
 // Sampah Plastik
 Route::middleware(['auth:sanctum', 'verified'])->resource('sampah-plastik', SampahPlastikController::class);
+Route::middleware(['auth:sanctum', 'verified'])->get('/sampah-plastik/delete/{id}', [SampahPlastikController::class, 'delete'])->name('sampah-plastik.delete');
 // END Sampah Plastik
 
 // Sampah Cacah

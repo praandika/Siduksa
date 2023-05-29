@@ -48,7 +48,9 @@
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm">{{ $o->name }}</h6>
+                                            @if($o->type != 'Campuran')
                                             <p class="text-xs text-secondary mb-0">{{ $o->stock }} kg</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </td>
@@ -81,6 +83,10 @@
                                 <td class="align-middle">
                                     <a href="{{ route('sampah-plastik.edit', $o->id) }}" data-toggle="tooltip" data-placement="top" title="Ubah">
                                         <i class="fas fa-edit" style="color: DodgerBlue;"></i>
+                                    </a>
+                                    &nbsp;&nbsp;
+                                    <a href="{{ route('sampah-plastik.delete', $o->id) }}" data-toggle="tooltip" data-placement="top" title="Hapus" onclick="return tanya('Yakin hapus {{ $o->name }}?')">
+                                            <i class="fas fa-trash" style="color: Crimson;"></i>
                                     </a>
                                 </td>
                             </tr>

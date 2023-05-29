@@ -105,4 +105,11 @@ class SampahPlastikController extends Controller
     {
         //
     }
+
+    public function delete($id){
+        // Delete Transaksi
+        SampahPlastik::find($id)->delete();
+        toast('data terhapus','success');
+        return redirect()->back();
+    }
 }

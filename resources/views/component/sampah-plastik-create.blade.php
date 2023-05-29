@@ -44,13 +44,13 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Harga (Kg)</label>
-                        <input class="form-control" type="text" name="price_kg" value="{{ old('price_kg') }}" placeholder="Masukkan harga kg sampah plastik..." required>
+                        <input class="form-control" type="number" name="price_kg" value="{{ old('price_kg') }}" placeholder="Masukkan harga kg sampah plastik..." required>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Harga (Gram)</label>
-                        <input class="form-control" type="text" name="price_gram" value="{{ old('price_gram') }}" placeholder="Masukkan harga gram sampah plastik...">
+                        <input class="form-control" type="number" name="price_gram" value="{{ old('price_gram') }}" placeholder="Masukkan harga gram sampah plastik...">
                     </div>
                 </div>
             </div>

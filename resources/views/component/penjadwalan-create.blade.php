@@ -48,7 +48,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Tanggal</label>
-                        <input class="form-control" type="datetime-local" name="total_weight" value="{{ $now }}"
+                        <input class="form-control" type="datetime-local" name="tanggal" value="{{ $now }}"
                             placeholder="Masukkan tanggal..." readonly>
                     </div>
                 </div>

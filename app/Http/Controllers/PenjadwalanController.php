@@ -53,29 +53,34 @@ class PenjadwalanController extends Controller
             alert()->error('Perhatian','Stok kurang!');
             return redirect()->back()->with('display', true);
         } else {
-            $now = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
-            $data = new Penjadwalan;
-            $data->mesin_id = $request->mesin_id;
-            $data->sampah_plastik_id = $request->sampah_id;
-            $data->first_stock = $request->first_stock / 1000;
-            $data->last_stock = 0;
-            $data->date_stock_in = $now;
-            $data->penjadwalan_date = $now;
-            $data->status = 'on progress';
-            $data->save();
-
-            $mesin = Mesin::find($request->mesin_id);
-            $mesin->status = 'online';
-            $mesin->update();
-
-            // Update Stock
-            $stok = ($request->stock - $request->first_stock) / 1000;
-            $updateStock = SampahPlastik::find($request->sampah_id);
-            $updateStock->stock = $stok;
-            $updateStock->update();
-
-            toast('Data penjadwalan berhasil disimpan','success');
-            return redirect()->route('penjadwalan.index')->with('display', true);
+            if ($request->mesin == '' || $request->sampah == '' || $request->tanggal == '') {
+                alert()->warning('Warning','Masih ada kolom kosong!');
+                return redirect()->back()->with('display', true);
+            } else {
+                $now = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+                $data = new Penjadwalan;
+                $data->mesin_id = $request->mesin_id;
+                $data->sampah_plastik_id = $request->sampah_id;
+                $data->first_stock = $request->first_stock / 1000;
+                $data->last_stock = 0;
+                $data->date_stock_in = $now;
+                $data->penjadwalan_date = $now;
+                $data->status = 'on progress';
+                $data->save();
+    
+                $mesin = Mesin::find($request->mesin_id);
+                $mesin->status = 'online';
+                $mesin->update();
+    
+                // Update Stock
+                $stok = ($request->stock - $request->first_stock) / 1000;
+                $updateStock = SampahPlastik::find($request->sampah_id);
+                $updateStock->stock = $stok;
+                $updateStock->update();
+    
+                toast('Data penjadwalan berhasil disimpan','success');
+                return redirect()->route('penjadwalan.index')->with('display', true);
+            }
         }
     }
 
@@ -111,40 +116,50 @@ class PenjadwalanController extends Controller
      */
     public function update(Request $request, Penjadwalan $penjadwalan)
     {
-        $getAvgFirstStock = Penjadwalan::selectRaw('AVG(first_stock) as fs')->limit(30)->pluck('fs');
-        $avgFristStock = $getAvgFirstStock[0];
-
-        $getAvgLastStock = Penjadwalan::selectRaw('AVG(last_stock) as ls')->limit(30)->pluck('ls');
-        $avgLastStock = $getAvgLastStock[0];
-
-        $countPenjadwalan = Penjadwalan::count();
-        
-        if ($countPenjadwalan < 30) {
-            $last_stock = $request->last_stock / 1000;
-            $recovery_factor = ($last_stock / (float) $request->first_stock) * 100;
+        if ($request->sampah_cacah == '') {
+            alert()->warning('Warning','Sampah cacah harus dipilih!');
+            return redirect()->back();
         } else {
-            $recovery_factor = ($avgLastStock / $avgFristStock) * 100;
-            // dd($avgFristStock, "avg last stock ".$avgLastStock, $recovery_factor);
-        }
+            if ($request->last_stock > ($request->first_stock * 1000)) {
+                alert()->warning('Warning','Melebihi berat awal!');
+                return redirect()->back();
+            } else {
+                $getAvgFirstStock = Penjadwalan::selectRaw('AVG(first_stock) as fs')->limit(30)->pluck('fs');
+                $avgFristStock = $getAvgFirstStock[0];
         
-        $now = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
-        $data = Penjadwalan::find($penjadwalan->id);
-        $data->recovery_factor = round($recovery_factor,2);
-        $data->last_stock = $request->last_stock / 1000;
-        $data->date_stock_out = $now;
-        $data->status = 'finished';
-        $data->update();
-
-        $mesin = Mesin::find($request->mesin_id);
-        $mesin->status = 'offline';
-        $mesin->update();
-
-        $data = SampahCacah::find($request->sampah_cacah_id);
-        $data->stock = ($request->stock + $request->last_stock) / 1000;
-        $data->update();
-
-        toast('Penjadwalan selesai','success');
-        return redirect()->back();
+                $getAvgLastStock = Penjadwalan::selectRaw('AVG(last_stock) as ls')->limit(30)->pluck('ls');
+                $avgLastStock = $getAvgLastStock[0];
+        
+                $countPenjadwalan = Penjadwalan::count();
+                
+                if ($countPenjadwalan < 30) {
+                    $last_stock = $request->last_stock / 1000;
+                    $recovery_factor = ($last_stock / (float) $request->first_stock) * 100;
+                } else {
+                    $recovery_factor = ($avgLastStock / $avgFristStock) * 100;
+                    // dd($avgFristStock, "avg last stock ".$avgLastStock, $recovery_factor);
+                }
+                
+                $now = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+                $data = Penjadwalan::find($penjadwalan->id);
+                $data->recovery_factor = round($recovery_factor,2);
+                $data->last_stock = $request->last_stock / 1000;
+                $data->date_stock_out = $now;
+                $data->status = 'finished';
+                $data->update();
+        
+                $mesin = Mesin::find($request->mesin_id);
+                $mesin->status = 'offline';
+                $mesin->update();
+        
+                $data = SampahCacah::find($request->sampah_cacah_id);
+                $data->stock = ($request->stock + $request->last_stock) / 1000;
+                $data->update();
+        
+                toast('Penjadwalan selesai','success');
+                return redirect()->back();
+            }
+        }
     }
 
     /**

@@ -50,20 +50,25 @@ class PengirimanController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new Pengiriman;
-        $data->production_date = $request->production_date;
-        $data->mesin_id = $request->mesin_id;
-        $data->invoice = $request->invoice;
-        $data->total = $request->qtykirim;
-        $data->date = $request->date;
-        $data->status = 'shipping';
-        $data->save();
+        if ($request->mesin_name == '' || $request->sampah_name == '' || $request->qtykirim == '') {
+            alert()->warning('Warning','Masih ada kolom kosong!');
+            return redirect()->back()->with('display',true);
+        } else {
+            $data = new Pengiriman;
+            $data->production_date = $request->production_date;
+            $data->mesin_id = $request->mesin_id;
+            $data->invoice = $request->invoice;
+            $data->total = $request->qtykirim;
+            $data->date = $request->date;
+            $data->status = 'shipping';
+            $data->save();
 
-        $penjualan = Penjualan::where('invoice',$request->invoice)->first();
-        $penjualan->status = 'shipping';
-        $penjualan->update();
-        toast('Data pengiriman berhasil disimpan','success');
-        return redirect()->route('pengiriman.index')->with('display',true);
+            $penjualan = Penjualan::where('invoice',$request->invoice)->first();
+            $penjualan->status = 'shipping';
+            $penjualan->update();
+            toast('Data pengiriman berhasil disimpan','success');
+            return redirect()->route('pengiriman.index')->with('display',true);
+        }
     }
 
     /**
