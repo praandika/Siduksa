@@ -46,9 +46,21 @@ class SampahPlastikController extends Controller
         $data->price_kg = $kg;
         $data->price_gram = $gram;
         $data->stock = 0;
-        $data->save();
-        toast('Data sampah plastik berhasil disimpan','success');
-        return redirect()->route('sampah-plastik.index')->with('display', true);
+        if ($request->image == '') {
+            $data->photo = 'icon-sampah.png';
+            $data->save();
+            toast('Data sampah plastik berhasil disimpan','success');
+            return redirect()->route('sampah-plastik.index')->with('display', true);
+        } else {
+            $img = $request->file('image');
+            $img_file = time()."_".$img->getClientOriginalName();
+            $dir_img = 'assets/img';
+            $img->move($dir_img,$img_file);
+            $data->photo = $img_file;
+            $data->save();
+            toast('Data sampah plastik berhasil disimpan','success');
+            return redirect()->route('sampah-plastik.index')->with('display', true);
+        }
     }
 
     /**
@@ -90,9 +102,26 @@ class SampahPlastikController extends Controller
         $data->type = $request->type;
         $data->price_kg = $kg;
         $data->price_gram = $gram;
-        $data->update();
-        toast('Data sampah plastik berhasil diubah','success');
-        return redirect()->back();
+        if ($request->hasfile('image')) {
+            if ($data->photo != '' && $data->photo != 'icon-sampah.png') {
+                $img_prev = $request->img_prev;
+                unlink('assets/img'.$img_prev);
+            }
+
+            $img = $request->file('image');
+            $img_file = time()."_".$img->getClientOriginalName();
+            $dir_img = 'assets/img';
+            $img->move($dir_img,$img_file);
+
+            $data->photo = $img_file;
+            $data->update();
+            toast('Data sampah plastik berhasil diubah','success');
+            return redirect()->back();
+        }else{
+            $data->update();
+            toast('Data sampah plastik berhasil diubah','success');
+            return redirect()->back();
+        }
     }
 
     /**

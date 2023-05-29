@@ -9,7 +9,7 @@ class StokSampah extends Component
 {
     public function render()
     {
-        $data = SampahPlastik::selectRaw('SUM(stock) as stock, type')->where('type','!=','Campuran')->groupBy('type')->get();
+        $data = SampahPlastik::selectRaw('SUM(stock) as stock, type, photo')->where('type','!=','Campuran')->groupBy('type')->get();
         return view('livewire.stok-sampah', compact('data'));
     }
 }

@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="card-body">
-        <form action="{{ route('sampah-plastik.store') }}" method="post">
+        <form action="{{ route('sampah-plastik.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <p class="text-uppercase text-sm">Sampah Plastik Information</p>
             <div class="row">
@@ -51,6 +51,12 @@
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Harga (Gram)</label>
                         <input class="form-control" type="number" name="price_gram" value="{{ old('price_gram') }}" placeholder="Masukkan harga gram sampah plastik...">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Foto Produk</label>
+                        <input class="form-control" type="file" name="image" placeholder="Masukkan foto sampah plastik...">
                     </div>
                 </div>
             </div>

@@ -46,9 +46,21 @@ class SampahCacahController extends Controller
         $data->price_kg = $kg;
         $data->price_gram = $gram;
         $data->stock = 0;
-        $data->save();
-        toast('Data sampah cacah berhasil disimpan','success');
-        return redirect()->route('sampah-cacah.index')->with('display', true);
+        if ($request->image == '') {
+            $data->photo = 'sparkling.gif';
+            $data->save();
+            toast('Data sampah cacah berhasil disimpan','success');
+            return redirect()->route('sampah-cacah.index')->with('display', true);
+        } else {
+            $img = $request->file('image');
+            $img_file = time()."_".$img->getClientOriginalName();
+            $dir_img = 'assets/img';
+            $img->move($dir_img,$img_file);
+            $data->photo = $img_file;
+            $data->save();
+            toast('Data sampah cacah berhasil disimpan','success');
+            return redirect()->route('sampah-cacah.index')->with('display', true);
+        }
     }
 
     /**
@@ -92,9 +104,26 @@ class SampahCacahController extends Controller
         $data->price_kg = $kg;
         $data->price_gram = $gram;
         // $data->stock = $request->stock / 1000;
-        $data->update();
-        toast('Data sampah cacah berhasil diubah','success');
-        return redirect()->back();
+        if ($request->hasfile('image')) {
+            if ($data->photo != '' && $data->photo != 'sparkling.gif') {
+                $img_prev = $request->img_prev;
+                unlink('assets/img'.$img_prev);
+            }
+
+            $img = $request->file('image');
+            $img_file = time()."_".$img->getClientOriginalName();
+            $dir_img = 'assets/img';
+            $img->move($dir_img,$img_file);
+
+            $data->photo = $img_file;
+            $data->update();
+            toast('Data sampah cacah berhasil diubah','success');
+            return redirect()->back();
+        }else{
+            $data->update();
+            toast('Data sampah cacah berhasil diubah','success');
+            return redirect()->back();
+        }
     }
 
     /**

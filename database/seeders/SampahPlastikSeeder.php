@@ -21,6 +21,7 @@ class SampahPlastikSeeder extends Seeder
             'price_kg' => 20000,
             'price_gram' => 20,
             'stock' => 0,
+            'photo' => 'icon-sampah.png',
         ]);
 
         SampahPlastik::insert([
@@ -29,6 +30,7 @@ class SampahPlastikSeeder extends Seeder
             'price_kg' => 0,
             'price_gram' => 0,
             'stock' => 0,
+            'photo' => 'icon-sampah.png',
         ]);
     }
 }

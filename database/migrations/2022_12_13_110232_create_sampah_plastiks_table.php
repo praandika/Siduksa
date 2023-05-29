@@ -20,6 +20,7 @@ return new class extends Migration
             $table->float('stock');
             $table->integer('price_kg');
             $table->integer('price_gram');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

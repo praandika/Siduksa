@@ -12,7 +12,7 @@
         <h6>Edit Data {{ $sampahCacah->name }}</h6>
     </div>
     <div class="card-body">
-        <form action="{{ route('sampah-cacah.update', $sampahCacah->id) }}" method="post">
+        <form action="{{ route('sampah-cacah.update', $sampahCacah->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <p class="text-uppercase text-sm">Sampah Cacah Information</p>
@@ -39,6 +39,15 @@
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Stok Tersedia</label>
                         <input class="form-control" type="text" value="{{ $stockAvailable }} Gram" placeholder="Stok tersedia..." readonly>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Foto Produk</label>
+                        <div class="card">
+                            <img src="{{ asset('assets/img/'.$sampahCacah->photo.'') }}" width="80px">
+                        </div>
+                        <input class="form-control" type="file" name="image" value="{{ $sampahCacah->photo }}" placeholder="Ganti foto sampah plastik...">
                     </div>
                 </div>
                 <!-- <div class="col-md-2">

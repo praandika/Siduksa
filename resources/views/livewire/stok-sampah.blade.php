@@ -13,7 +13,7 @@
                         <td class="w-30">
                             <div class="d-flex px-2 py-1 align-items-center">
                                 <div>
-                                    <img src="{{ asset('assets/img/icon-sampah.png') }}" alt="Sampah Icon">
+                                    <img src="{{ asset('assets/img/'.$o->photo.'') }}" alt="Sampah Icon" width="60px">
                                 </div>
                                 <div class="ms-4">
                                     <p class="text-xs font-weight-bold mb-0">Type Sampah</p>
