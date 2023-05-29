@@ -73,42 +73,47 @@ class PemilahanController extends Controller
      */
     public function update(Request $request, Pemilahan $pemilahan)
     {
-        if ($request->satuan == 'Kg') {
-            $totalWeight = $request->totalWeight * 1000;
-            $countWeight = $totalWeight - ($request->qty + $request->waste); //Gram
-            $remainingWeight = $countWeight / 1000;
-        } else {
-            $totalWeight = $request->totalWeight;
-            $countWeight = $totalWeight - ($request->qty + $request->waste);
-            $remainingWeight = $countWeight;
-        }
-        
-        // dd($countWeight);
-
-        if ($countWeight < 0 || $request->waste < 0) {
-            alert()->error('Oops...','Quantity melebihi total berat!');
+        if ($request->namaSampah == '' || $request->qty == '') {
+            alert()->warning('Warning','Masih ada kolom kosong!');
             return redirect()->back();
         } else {
-            if ($countWeight == 0) {
-                $status = 'Sorted';
+            if ($request->satuan == 'Kg') {
+                $totalWeight = $request->totalWeight * 1000;
+                $countWeight = $totalWeight - ($request->qty + $request->waste); //Gram
+                $remainingWeight = $countWeight / 1000;
             } else {
-                $status = 'Sorting on progress';
+                $totalWeight = $request->totalWeight;
+                $countWeight = $totalWeight - ($request->qty + $request->waste);
+                $remainingWeight = $countWeight;
             }
             
-            $pemilahan = Pemilahan::find($pemilahan->id);
-            $pemilahan->total_weight = $remainingWeight;
-            $pemilahan->status = $status;
-            $pemilahan->waste_trash = $request->waste;
-            $pemilahan->update();
+            // dd($countWeight);
     
-            // Update Stock
-            $stock = ($request->stock + $request->qty) / 1000;
-            $updateStock = SampahPlastik::find($request->idSampah);
-            $updateStock->stock = $stock;
-            $updateStock->update();
-    
-            toast('Sampah berhasil dipilah');
-            return redirect()->back();
+            if ($countWeight < 0 || $request->waste < 0) {
+                alert()->error('Oops...','Quantity melebihi total berat!');
+                return redirect()->back();
+            } else {
+                if ($countWeight == 0) {
+                    $status = 'Sorted';
+                } else {
+                    $status = 'Sorting on progress';
+                }
+                
+                $pemilahan = Pemilahan::find($pemilahan->id);
+                $pemilahan->total_weight = $remainingWeight;
+                $pemilahan->status = $status;
+                $pemilahan->waste_trash = $request->waste;
+                $pemilahan->update();
+        
+                // Update Stock
+                $stock = ($request->stock + $request->qty) / 1000;
+                $updateStock = SampahPlastik::find($request->idSampah);
+                $updateStock->stock = $stock;
+                $updateStock->update();
+        
+                toast('Sampah berhasil dipilah');
+                return redirect()->back();
+            }
         }
     }
 
