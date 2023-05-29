@@ -19,7 +19,6 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Pengiriman</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Produksi</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Invoice</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mesin</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
@@ -30,7 +29,6 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Pengiriman</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Produksi</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Invoice</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mesin</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
@@ -61,9 +59,6 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <span class="text-xs font-weight-bold">{{ $o->mesin->name }}</span>
-                                </td>
-                                <td>
                                     <span class="text-xs font-weight-bold badge badge-sm {{ $o->status == 'arrived' ? 'bg-gradient-primary' : 'bg-gradient-warning' }} ">{{ $o->status }}</span>
                                 </td>
                                 <td class="align-middle">
@@ -91,7 +86,6 @@
                             @empty
                             <tr>
                                 <td>#</td>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

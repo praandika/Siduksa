@@ -25,11 +25,10 @@ class PengirimanController extends Controller
         ->selectRaw('penjualans.invoice, SUM(IF(transaksi_penjualans.satuan = "Kg", ROUND(transaksi_penjualans.qty*1000, 0), ROUND(transaksi_penjualans.qty, 0))) as qty')
         ->groupBy('penjualans.invoice')
         ->get();
-        $mesin = Mesin::all();
         $now = Carbon::now('GMT+8')->format('Y-m-d');
         $data = Pengiriman::orderBy('date','desc')->get();
         
-        return view('page', compact('data','now','sampah','mesin'));
+        return view('page', compact('data','now','sampah'));
     }
 
     /**
@@ -50,6 +49,7 @@ class PengirimanController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
         if ($request->mesin_name == '' || $request->sampah_name == '' || $request->qtykirim == '') {
             alert()->warning('Warning','Masih ada kolom kosong!');
             return redirect()->back()->with('display',true);
@@ -62,6 +62,15 @@ class PengirimanController extends Controller
             $data->date = $request->date;
             $data->status = 'shipping';
             $data->save();
+=======
+        $data = new Pengiriman;
+        $data->production_date = $request->production_date;
+        $data->invoice = $request->invoice;
+        $data->total = $request->qtykirim;
+        $data->date = $request->date;
+        $data->status = 'shipping';
+        $data->save();
+>>>>>>> 7af1d8aa67441d1f1eab6e3f8aaeaf06008d9bd0
 
             $penjualan = Penjualan::where('invoice',$request->invoice)->first();
             $penjualan->status = 'shipping';

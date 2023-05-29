@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="card-body">
-        <form action="{{ route('export',$param) }}">
+        <form action="{{ $title == 'Laba Rugi' ? route('labarugi') : route('export',$param) }}">  
             @csrf()
             <div class="row">
                 <div class="col-md-6">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <button type="submit" class="btn bg-gradient-secondary"><i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;Export</button>
+                    <button type="submit" class="btn bg-gradient-secondary"><i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;{{ $title == 'Laba Rugi' ? 'Proses' : 'Export' }}</button>
                 </div>
             </div>
             
@@ -169,6 +169,46 @@
                                 <td></td>
                             </tr>
                             @endforelse
+                        </tbody>
+                        @elseif(Route::is('labarugi'))
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Pembelian</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Penjualan
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Rp {{ number_format($pembelian, 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($penjualan, 0, ',', '.') }}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th style="color: {{ $color }}">{{ $result }}</th>
+                                <th style="color: {{ $color }}">Rp {{ number_format($laba, 0, ',', '.') }}</th>
+                            </tr>
+                        </tfoot>
+
+                        <a href="{{ route('print.labarugi',['start' => $start, 'end' => $end]) }}" class="btn bg-gradient-success" target="_blank">Print</a>
+                        @elseif($title == 'Laba Rugi')
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Pembelian</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Penjualan
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
                         </tbody>
                         @else
                         <thead>

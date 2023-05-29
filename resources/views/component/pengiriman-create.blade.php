@@ -31,13 +31,13 @@
                         <input class="form-control" type="date" name="production_date" value="{{ $now }}" placeholder="Masukkan tanggal pengiriman..." required autofocus>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Kode Mesin</label>
                         <input type="hidden" name="mesin_id" id="mesin_id">
                         <input class="form-control" id="mesin_name" type="text" name="mesin_name" placeholder="Pilih Mesin" data-bs-toggle="modal" data-bs-target="#mesinData" readonly required>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Sampah Cacah</label>
@@ -127,75 +127,6 @@
 </div>
 <!-- END Sampah Cacah Modal -->
 
-<!-- Mesin Modal -->
-<div style="z-index: 9999;" class="modal fade" id="mesinData" tabindex="-1" role="dialog" aria-labelledby="mesinDataLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="mesinDataLabel">Pilih Mesin</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="table-responsive p-3">
-                    <table class="table align-items-center mb-0" id="dataTable">
-                    <thead>
-                            <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Machine</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Machine</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                            @php($no = 1)
-                            @forelse($mesin as $o)
-                            <tr 
-                            data-id="{{ $o->id }}"
-                            data-name="{{ $o->name }}"
-                            class="pilihMesin">
-                            <td>
-                                    <span class="text-xs font-weight-bold">{{ $no++ }}</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex px-2 py-1">
-                                        <div>
-                                            <img src="{{ $o->status == 'online' ? asset('assets/img/robot-on.gif') : asset('assets/img/robot-off.png') }}" class="avatar avatar-sm me-3"
-                                                alt="user1">
-                                        </div>
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{ $o->name }}</h6>
-                                            <p class="text-xs text-secondary mb-0">{{ $o->capacity }} Kg</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-sm">
-                                    <span class="badge badge-sm {{ $o->status == 'online' ? 'bg-gradient-success' : 'bg-gradient-secondary' }} ">{{ $o->status }}</span>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td>#</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END Mesin Modal -->
 
 @push('after-script')
 <script>

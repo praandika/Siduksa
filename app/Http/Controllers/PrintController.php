@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\TransaksiPembelian;
 use App\Models\TransaksiPenjualan;
+use App\Models\Penjualan;
+use App\Models\Pembelian;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -67,5 +69,28 @@ class PrintController extends Controller
         $pdf = PDF::loadView('print.pdf-invoice',compact('data','invoice','printDate','param','address','invoiceTo','date','grandTotal'));
         $pdf->setPaper('A5', 'potrait');
         return $pdf->stream('invoice_'.$param.'_'.$invoice.'.pdf');
+    }
+
+    public function labarugi($start, $end){
+        $title = 'Laba Rugi';
+        $penjualan = Penjualan::whereBetween('date', [$start, $end])->sum('total');
+        $pembelian = Pembelian::whereBetween('date', [$start, $end])->sum('total');
+
+        $laba = $penjualan - $pembelian;
+        
+        if ($laba > 0) {
+            $result = 'Laba';
+            $color = 'green';
+        } elseif($laba < 0) {
+            $result = 'Rugi';
+            $color = 'crimson';
+        } else {
+            $result = 'BEP';
+            $color = 'black';
+        }
+
+        $pdf = PDF::loadView('print.pdf-labarugi',compact('penjualan','pembelian','laba','result','title','color','start','end'));
+        $pdf->setPaper('A5', 'potrait');
+        return $pdf->stream('labarugi'.$start.'_'.$end.'.pdf');
     }
 }

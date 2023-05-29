@@ -9,7 +9,7 @@
 
 <div class="card card-frame mb-4">
     <div class="card-header pb-0">
-        <h6>Edit Data {{ $pengiriman->invoice }} {{ $pengiriman->mesin->name }}</h6>
+        <h6>Edit Data {{ $pengiriman->invoice }}</h6>
     </div>
     <div class="card-body">
         <form action="{{ route('pengiriman.update', $pengiriman->id) }}" method="post">

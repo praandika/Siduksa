@@ -166,6 +166,8 @@
             Penjualan</a>
         <a href="{{ route('report','pembelian') }}" target="_blank"
             class="btn btn-danger btn-sm w-100 mb-3">Laporan Pembelian</a>
+        <a href="{{ route('report','labarugi') }}" target="_blank"
+            class="btn btn-success btn-sm w-100 mb-3">Laporan Laba Rugi</a>
     </div>
     @endif
 </aside>

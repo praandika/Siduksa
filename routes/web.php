@@ -103,9 +103,11 @@ Route::get('/logoutaction', [UserController::class, 'logoutAction'])->name('logo
 
 // Laporan
 Route::middleware(['auth:sanctum', 'verified'])->get('/report/{param}', [ReportController::class, 'report'])->name('report');
+Route::middleware(['auth:sanctum', 'verified'])->get('/labarugi', [ReportController::class, 'labarugi'])->name('labarugi');
 
 // Print PDF
 Route::middleware(['auth:sanctum', 'verified'])->get('/print-invoice/{param}/{invoice}', [PrintController::class, 'invoice'])->name('print.invoice');
+Route::middleware(['auth:sanctum', 'verified'])->get('/print-labarugi/{start}/{end}', [PrintController::class, 'labarugi'])->name('print.labarugi');
 
 // Export Excel
 Route::middleware(['auth:sanctum', 'verified'])->get('/export/{param}', [ExportController::class, 'export'])->name('export');

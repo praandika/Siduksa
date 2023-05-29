@@ -28,21 +28,31 @@
                         <label for="example-text-input" class="form-control-label">Total Berat</label>
                         <input class="form-control" type="text" name="total" value="{{ $pemilahan->satuan == 'Kg' ? number_format($pemilahan->total_weight * 1000, 0, ',', '.') : number_format($pemilahan->total_weight, 0, ',', '.') }} Gram" placeholder="Masukkan nama sampah plastik..." required readonly>
                         <input type="hidden" name="satuan" value="{{ $pemilahan->satuan }}">
-                        <input type="hidden" name="totalWeight" value="{{ $pemilahan->total_weight }}">
+                        <input type="hidden" name="totalWeight" id="totalWeight" value="{{ $pemilahan->total_weight }}">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Sampah Dipilah ke...</label>
-                        <input type="hidden" name="idSampah" id="idSampah" required>
-                        <input type="hidden" name="stock" id="stock" required>
-                        <input class="form-control" type="text" name="namaSampah" id="namaSampah" placeholder="Pilih Sampah" data-bs-toggle="modal" data-bs-target="#sampahPlastikData" required>
+                        <input type="hidden" name="idSampah" id="idSampah">
+                        <input type="hidden" name="stock" id="stock">
+                        <input class="form-control" type="text" name="namaSampah" id="namaSampah" placeholder="Pilih Sampah" data-bs-toggle="modal" data-bs-target="#sampahPlastikData" required readonly>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Total Pilah (Gram)</label>
                         <input class="form-control" type="text" name="qty" id="qty" placeholder="Masukkan Dalam Satuan Gram" required>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Total Sampah Buangan (Gram)</label>
+                        <input class="form-control" type="text" name="waste" id="waste" value="{{ $pemilahan->waste_trash }}"  placeholder="Masukkan Dalam Satuan Gram" required readonly>
+                        <input type="hidden" id="berat" value="{{ $pemilahan->satuan == 'Kg' ? $pemilahan->total_weight * 1000 : $pemilahan->total_weight }}">
+                        <a onclick="hitungWaste()" style="cursor: pointer; font-size: 12px; background-color: green; color: white; padding: 2px 8px; border-radius: 20px; margin-top: 10px; display: inline-block; font-weight: bold;">Hitung</a>
+
+                        <a onclick="hitungReset()" style="cursor: pointer; font-size: 12px; background-color: crimson; color: white; padding: 2px 8px; border-radius: 20px; margin-top: 10px; display: inline-block; font-weight: bold;">Reset</a>
                     </div>
                 </div>
             </div>
@@ -147,5 +157,23 @@
         $('#stock').val($(this).attr('data-stock'));
         $('#sampahPlastikData').modal('hide');
     });
+</script>
+
+<script>
+    function hitungWaste(){
+        let berat = document.getElementById("berat").value;
+        let pilah = document.getElementById("qty").value;
+        let wasteInput = document.getElementById("waste");
+        let waste = 0;
+
+        waste = parseFloat(berat) - parseFloat(pilah);
+
+        wasteInput.value = waste;
+    }
+
+    function hitungReset(){
+        let wasteInput = document.getElementById("waste");
+        wasteInput.value = 0;
+    }
 </script>
 @endpush

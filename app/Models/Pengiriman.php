@@ -19,9 +19,9 @@ class Pengiriman extends Model
     // }
 
     // Relasi to Mesin, pengiriman has mesin_id
-    public function mesin(){
-        return $this->belongsTo(Mesin::class);
-    }
+    // public function mesin(){
+    //     return $this->belongsTo(Mesin::class);
+    // }
 
     // // Relasi to Sampah Cacah, pengiriman has sampah_cacah_id
     // public function transaksiPenjualan(){
