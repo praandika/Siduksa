@@ -20,13 +20,18 @@ class PengirimanController extends Controller
     public function index()
     {
         $sampah = TransaksiPenjualan::join('penjualans','transaksi_penjualans.penjualan_id','penjualans.id')
+        ->join('sampah_cacahs','transaksi_penjualans.sampah_cacah_id','sampah_cacahs.id')
         ->where('penjualans.status','preparing')
         ->orderBy('penjualans.id','asc')
-        ->selectRaw('penjualans.invoice, SUM(IF(transaksi_penjualans.satuan = "Kg", ROUND(transaksi_penjualans.qty*1000, 0), ROUND(transaksi_penjualans.qty, 0))) as qty')
+        ->selectRaw('penjualans.invoice, SUM(IF(transaksi_penjualans.satuan = "Kg", ROUND(transaksi_penjualans.qty*1000, 0), ROUND(transaksi_penjualans.qty, 0))) as qty, sampah_cacahs.photo')
         ->groupBy('penjualans.invoice')
         ->get();
         $now = Carbon::now('GMT+8')->format('Y-m-d');
-        $data = Pengiriman::orderBy('date','desc')->get();
+        $data = Pengiriman::join('penjualans','pengirimen.invoice','penjualans.invoice')
+        ->join('transaksi_penjualans','transaksi_penjualans.penjualan_id','penjualans.id')
+        ->join('sampah_cacahs','transaksi_penjualans.sampah_cacah_id','sampah_cacahs.id')
+        ->select('pengirimen.date','pengirimen.production_date','sampah_cacahs.photo','pengirimen.invoice','pengirimen.status','pengirimen.id')
+        ->orderBy('pengirimen.date','desc')->get();
         
         return view('page', compact('data','now','sampah'));
     }
@@ -49,13 +54,12 @@ class PengirimanController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->mesin_name == '' || $request->sampah_name == '' || $request->qtykirim == '') {
+        if ($request->sampah_name == '' || $request->qtykirim == '') {
             alert()->warning('Warning','Masih ada kolom kosong!');
             return redirect()->back()->with('display',true);
         } else {
             $data = new Pengiriman;
             $data->production_date = $request->production_date;
-            $data->mesin_id = $request->mesin_id;
             $data->invoice = $request->invoice;
             $data->total = $request->qtykirim;
             $data->date = $request->date;

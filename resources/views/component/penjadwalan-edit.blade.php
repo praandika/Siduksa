@@ -71,7 +71,7 @@
                     <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Hasil Akhir (Gram)</label>
                         <input class="form-control" type="number" min="0" name="last_stock" id="last_stock" placeholder="Masukkan berat hasil akhir..."
-                            required>
+                            required {{ $penjadwalan->status == 'finished' ? 'disabled' : '' }}>
                     </div>
                 </div>
             </div>
